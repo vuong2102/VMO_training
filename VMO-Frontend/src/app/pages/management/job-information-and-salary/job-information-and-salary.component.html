@@ -1,0 +1,554 @@
+<div class="title">
+  <p>Quản lý thông tin công tác - lương</p>
+</div>
+
+<div style="width: 35%; height: 40px" class="custom-input-group">
+  <button nz-button nzType="primary" class="btn-add" (click)="openForm()">
+    Thêm mới
+  </button>
+  <button nz-button nzType="primary" class="btn-export">Xuất Excel</button>
+  <nz-input-group
+    nzSearch
+    [nzAddOnAfter]="suffixIconButton"
+    style="padding: 7px"
+  >
+    <input type="text" nz-input placeholder="Tìm kiếm" />
+  </nz-input-group>
+  <ng-template #suffixIconButton>
+    <button nz-button nzType="primary" nzSearch>
+      <span nz-icon nzType="search"></span>
+    </button>
+  </ng-template>
+</div>
+
+<nz-table
+  #fixedTable
+  [nzData]="listSalaryProfile"
+  *ngIf="listSalaryProfile.length > 0"
+  [nzScroll]="{ x: '100%', y: '450px' }"
+  class="thin-scrollbar">
+  <thead>
+    <tr>
+      <th nzLeft nzWidth="60px">STT</th>
+      <th nzLeft nzWidth="120px">Mã nhân viên</th>
+      <th nzLeft nzWidth="160px">Tên nhân viên</th>
+      <th nzWidth="120px">Phòng ban</th>
+      <th nzWidth="120px">Chức danh</th>
+      <th nzWidth="150px">Lương cơ bản</th>
+      <th nzWidth="150px">Thưởng</th>
+      <th nzWidth="150px">Khấu trừ</th>
+      <th nzWidth="150px">Phụ cấp</th>
+      <th nzWidth="150px">Phúc lợi</th>
+      <th nzWidth="150px">Rank lương</th>
+      <th nzWidth="150px">Bậc lương</th>
+      <th nzWidth="150px">Tình trạng</th>
+      <th nzRight nzWidth="110px">Thao tác</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of fixedTable.nzData; let i = index">
+      <td nzLeft>{{ i + 1 }}</td>
+      <td nzLeft>{{ data.employee.code }}</td>
+      <td nzBreakWord nzLeft>{{ data.employee.name }}</td>
+      <td nzBreakWord>{{ data.employee.department.name }}</td>
+      <td nzBreakWord>{{data.employee.title.name }}</td>
+      <td nzBreakWord>{{ data.basicSalary | vndCurrency  }}</td>
+      <td nzBreakWord>{{ data.bonus | vndCurrency}}</td>
+      <td nzBreakWord>{{ data.deduction | vndCurrency}}</td>
+      <td nzBreakWord>{{ data.benefits?.length }}</td>
+      <td nzBreakWord>{{ data.salaryRank }}</td>
+      <td nzBreakWord>{{ data.salaryRank }}</td>
+      <td nzBreakWord>{{ data.salaryLevel }}</td>
+      <td *ngIf="data.status == activeStatus.NoActive" style="color: #faad14; font-weight: 500">
+        Không hiệu lực
+      </td>
+      <td *ngIf="data.status == activeStatus.Active" style="color: #12d416">Hiệu lực</td>
+      <td nzRight>
+        <div class="button-title">
+          <span
+            nz-icon
+            nzType="edit"
+            nzTheme="outline"
+            class="action-button update-button"
+            nz-tooltip
+            nzTooltipTitle="Sửa"
+            (click)="formTitle()"
+          ></span>
+          <span
+            nz-icon
+            nzType="delete"
+            nzTheme="outline"
+            class="action-button delete-button"
+            nz-tooltip
+            nzTooltipTitle="Xóa"
+            (click)="deleteTitle(data)"
+          ></span>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<!-- Add hồ sơ lương -->
+
+<div class="add-form" *ngIf="isNewTitleFormVisible">
+  <div class="close-btn">
+    <button
+      type="button"
+      class="close-button"
+      (click)="hideNewTitleForm()"
+      style="background-color: rgb(255, 255, 255); border: rgb(255, 255, 255)"
+    >
+      <span nz-icon nzType="close" nzTheme="outline"></span>
+    </button>
+  </div>
+  <p style="font-size: 19px">Thông tin hồ sơ lương</p>
+  <div class="add-table">
+    <nz-steps [nzCurrent]="current">
+      <nz-step nzTitle="Thông tin nhân viên"></nz-step>
+      <nz-step nzTitle="Hồ sơ lương"></nz-step>
+      <nz-step nzTitle="Lưu"></nz-step>
+    </nz-steps>
+
+    <div class="steps-content">
+      <form
+        nz-form
+        [formGroup]="addEmployeeForm"
+        (ngSubmit)="submitNewTitle()"
+        *ngIf="isFormEmployeeVisible"
+      >
+        <nz-row [nzGutter]="17">
+          <nz-col [nzSpan]="16">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="10" nzRequired>Phòng ban</nz-form-label>
+              <nz-form-control [nzSpan]="15" nzRequired>
+                <button
+                  nz-button
+                  nz-dropdown
+                  [nzDropdownMenu]="menu4"
+                  type="button"
+                  style="
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;">
+                  <span *ngIf="selectedDepartment">{{
+                    selectedDepartment.name
+                  }}</span>
+                  <span *ngIf="!selectedDepartment">&nbsp;</span>
+                  <span
+                    nz-icon
+                    nzType="down"
+                    style="right: 0; justify-content: end"
+                  ></span>
+                </button>
+
+                <nz-dropdown-menu #menu4="nzDropdownMenu">
+                  <ul nz-menu nzModel="selectedDepartment">
+                    <li
+                      nz-menu-item
+                      *ngFor="let department of listDepartment"
+                      (click)="selectDepartment(department)"
+                    >
+                      {{ department.name }}
+                    </li>
+                  </ul>
+                </nz-dropdown-menu>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col [nzSpan]="7">
+            <nz-form-item>
+              <nz-form-control [nzSpan]="14" nzRequired>
+                <input nz-input value="{{departmentCode}}" readonly placeholder="Mã phòng ban"/>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </nz-row>
+
+        <nz-row [nzGutter]="17">
+          <nz-col [nzSpan]="16">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="10" nzRequired>Chức danh</nz-form-label>
+              <nz-form-control [nzSpan]="15" nzRequired>
+                <button
+                  nz-button
+                  nz-dropdown
+                  [nzDropdownMenu]="menu5"
+                  type="button"
+                  style="
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;">
+                  <span *ngIf="selectedTitle">{{
+                    selectedTitle.name
+                  }}</span>
+                  <span *ngIf="!selectedTitle">&nbsp;</span>
+                  <span
+                    nz-icon
+                    nzType="down"
+                    style="right: 0; justify-content: end"
+                  ></span>
+                </button>
+
+                <nz-dropdown-menu #menu5="nzDropdownMenu">
+                  <ul nz-menu nzModel="selectedTitle">
+                    <li
+                      nz-menu-item
+                      *ngFor="let title of listTitle"
+                      (click)="selectTitle(title)"
+                    >
+                      {{ title.name }}
+                    </li>
+                  </ul>
+                </nz-dropdown-menu>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col [nzSpan]="7">
+            <nz-form-item>
+              <nz-form-control [nzSpan]="14" nzRequired>
+                <input nz-input value="{{titleCode}}" readonly placeholder="Mã chức danh"/>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </nz-row>
+
+        <nz-row [nzGutter]="17">
+          <nz-col [nzSpan]="16">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="10" nzRequired>Nhân viên</nz-form-label>
+              <nz-form-control [nzSpan]="15" nzRequired>
+                <button
+                  nz-button
+                  nz-dropdown
+                  [nzDropdownMenu]="menu6"
+                  type="button"
+                  style="
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;">
+                  <span *ngIf="selectedEmployee">{{
+                    selectedEmployee.name
+                  }}</span>
+                  <span *ngIf="!selectedEmployee">&nbsp;</span>
+                  <span
+                    nz-icon
+                    nzType="down"
+                    style="right: 0; justify-content: end"
+                  ></span>
+                </button>
+
+                <nz-dropdown-menu #menu6="nzDropdownMenu">
+                  <ul nz-menu nzModel="selectedEmployee">
+                    <li
+                      nz-menu-item
+                      *ngFor="let employee of listEmployee"
+                      (click)="selectEmployee(employee)"
+                    >
+                      {{ employee.name }}
+                    </li>
+                  </ul>
+                </nz-dropdown-menu>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col [nzSpan]="7">
+            <nz-form-item>
+              <nz-form-control [nzSpan]="14" nzRequired>
+                <input nz-input value="{{employeeCode}}" readonly placeholder="Mã chức danh"/>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </nz-row>
+
+        <nz-row [nzGutter]="17">
+          <nz-col [nzSpan]="16">
+            <nz-form-item>
+              <nz-form-control [nzOffset]="10" [nzSpan]="3">
+                <div class="steps-action">
+                  <button
+                    nz-button
+                    nzType="default"
+                    (click)="pre()"
+                    *ngIf="current > 0"
+                  >
+                    <span>Previous</span>
+                  </button>
+                  <button
+                    nz-button
+                    nzType="default"
+                    (click)="next()"
+                    *ngIf="current < 2"
+                  >
+                    <span>Next</span>
+                  </button>
+                  <button
+                    nz-button
+                    nzType="primary"
+                    (click)="done()"
+                    *ngIf="current === 2"
+                  >
+                    <span>Done</span>
+                  </button>
+                </div>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </nz-row>
+      </form>
+
+      <form
+        nz-form
+        [formGroup]="addSalaryProfileForm"
+        (ngSubmit)="submitNewTitle()"
+        *ngIf="isFormSalaryVisible"
+      >
+        <nz-row [nzGutter]="24">
+          <nz-col [nzSpan]="8">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="8" nzRequired
+                >Lương cơ bản</nz-form-label
+              >
+              <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+                <input nz-input formControlName="userName" required />
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+
+          <nz-col [nzSpan]="8">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="6" nzRequired>Phụ cấp</nz-form-label>
+              <nz-form-control [nzSpan]="17">
+                <nz-select
+                [nzMaxTagCount]="3"
+                [nzMaxTagPlaceholder]="tagPlaceHolder"
+                nzMode="multiple"
+                nzPlaceHolder="Please select"
+                [(ngModel)]="listOfSelectedValue"
+              >
+                <nz-option
+                  *ngFor="let item of listOfOption"
+                  [nzLabel]="item"
+                  [nzValue]="item"
+                ></nz-option>
+              </nz-select>
+              <ng-template #tagPlaceHolder let-selectedList
+                >and {{ selectedList.length }} more selected</ng-template
+              >              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+
+          <nz-col [nzSpan]="8">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="8" nzRequired>Thực nhận</nz-form-label>
+              <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+                <input nz-input formControlName="userName" required />
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </nz-row>
+
+        <nz-row [nzGutter]="24">
+          <nz-col [nzSpan]="8">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="8" nzRequired>Thưởng</nz-form-label>
+              <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+                <input nz-input formControlName="userName" required />
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+
+          <nz-col [nzSpan]="8">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="6" nzRequired>Phúc lợi</nz-form-label>
+              <nz-form-control [nzSpan]="17">
+                <nz-select
+                [nzMaxTagCount]="3"
+                [nzMaxTagPlaceholder]="tagPlaceHolder"
+                nzMode="multiple"
+                nzPlaceHolder="Please select"
+                [(ngModel)]="listOfSelectedValue"
+              >
+                <nz-option
+                  *ngFor="let item of listOfOption"
+                  [nzLabel]="item"
+                  [nzValue]="item"
+                ></nz-option>
+              </nz-select>
+              <ng-template #tagPlaceHolder let-selectedList
+                >and {{ selectedList.length }} more selected</ng-template
+              >              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+
+          <nz-col [nzSpan]="8">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="8" nzRequired>Ngày tạo</nz-form-label>
+              <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+                <input nz-input formControlName="userName" required />
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </nz-row>
+
+        <nz-row [nzGutter]="24">
+          <nz-col [nzSpan]="8">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="8" nzRequired>Giảm trừ</nz-form-label>
+              <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+                <input nz-input formControlName="userName" required />
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+
+          <nz-col [nzSpan]="8">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="6" nzRequired>Mức lương</nz-form-label>
+              <nz-form-control [nzSpan]="17" nzValidatingTip="Validating...">
+                <input nz-input formControlName="userName" required />
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+
+          <nz-col [nzSpan]="8">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="8" nzRequired>Trạng thái</nz-form-label>
+              <nz-form-control [nzSpan]="12" nzRequired>
+                <button
+                  nz-button
+                  nz-dropdown
+                  [nzDropdownMenu]="menu5"
+                  type="button"
+                  style="
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                  "
+                >
+                  <span *ngIf="selectedStatus">{{ selectedStatus }}</span>
+                  <span *ngIf="!selectedStatus">&nbsp;</span>
+                  <span
+                    nz-icon
+                    nzType="down"
+                    style="right: 0; justify-content: end"
+                  ></span>
+                </button>
+                <nz-dropdown-menu #menu5="nzDropdownMenu">
+                  <ul nz-menu nzModel="ActiveStatus">
+                    <li nz-menu-item (click)="selectStatus(1)">Áp dụng</li>
+                    <li nz-menu-item (click)="selectStatus(0)">
+                      Không áp dụng
+                    </li>
+                  </ul>
+                </nz-dropdown-menu>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </nz-row>
+
+        <nz-row [nzGutter]="24">
+          <nz-col [nzSpan]="8">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="8" nzRequired>Lương cứng</nz-form-label>
+              <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+                <input nz-input formControlName="userName" required />
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+
+          <nz-col [nzSpan]="8">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="6" nzRequired>Rank lương</nz-form-label>
+              <nz-form-control [nzSpan]="17" nzValidatingTip="Validating...">
+                <input nz-input formControlName="userName" required />
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </nz-row>
+
+        <nz-table
+          #groupingTable
+          [nzData]="listOfData"
+          nzBordered
+          nzSize="middle"
+          [nzScroll]="{ x: '1200px', y: '240px' }"
+        >
+          <thead>
+            <tr>
+              <th
+                rowspan="4"
+                nzLeft
+                [nzFilters]="filterName"
+                [nzFilterFn]="nameFilterFn"
+              >
+                Name
+              </th>
+              <th colspan="4">Phụ cấp</th>
+              <th colspan="2">Phúc lợi</th>
+              <th rowspan="4" nzRight>Trạng thái</th>
+            </tr>
+            <tr>
+              <th rowspan="3">Address</th>
+              <th rowspan="3">Address</th>
+              <th rowspan="3">Address</th>
+              <th rowspan="3">Address</th>
+              <th rowspan="3">Company Address</th>
+              <th rowspan="3">Company Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of groupingTable.data">
+              <td nzLeft>{{ data.name }}</td>
+              <td>{{ data.age }}</td>
+              <td>{{ data.street }}</td>
+              <td>{{ data.building }}</td>
+              <td>{{ data.number }}</td>
+              <td>{{ data.companyAddress }}</td>
+              <td>{{ data.companyName }}</td>
+              <td nzRight>{{ data.gender }}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+
+        <nz-row [nzGutter]="17">
+          <nz-col [nzSpan]="16">
+            <nz-form-item>
+              <nz-form-control [nzOffset]="10" [nzSpan]="3">
+                <div class="steps-action">
+                  <button
+                    nz-button
+                    nzType="default"
+                    (click)="pre()"
+                    *ngIf="current > 0"
+                  >
+                    <span>Previous</span>
+                  </button>
+                  <button
+                    nz-button
+                    nzType="default"
+                    (click)="next()"
+                    *ngIf="current < 2"
+                  >
+                    <span>Next</span>
+                  </button>
+                  <button
+                    nz-button
+                    nzType="primary"
+                    (click)="done()"
+                    *ngIf="current === 2"
+                  >
+                    <span>Done</span>
+                  </button>
+                </div>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </nz-row>
+      </form>
+    </div>
+  </div>
+</div>

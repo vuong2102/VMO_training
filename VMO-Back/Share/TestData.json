@@ -1,0 +1,32 @@
+﻿//Add SalaryProfile
+{
+  "basicSalary": 5000000,
+  "bonus": 2000000,
+  "deduction": 15000,
+  "netSalary": 7000000,
+  "salaryRank": "1",
+  "salaryLevel": "2",
+  "createDate": "2024-07-11T07:01:31.015Z",
+  "creatorId": "378f82701ab24738ba7936e06bdfd85e",
+  "updateDate": "2024-07-11T07:01:31.015Z",
+  "updaterId": "string",
+  "status": 0,
+  "contractId": null,
+  "employeeId": "378f82701ab24738ba7936e06bdfd85e",
+  "benefits": [
+    {
+      "benefitId": "28efd726c63a47bfa3ae47682f8c533a",
+      "type": "Xăng xe",
+      "expense": 150000,
+      "status": "NoActive"
+    }
+  ],
+  "allowances": [
+    {
+      "allowanceId": "5cf03b697c4e42be8fe0e107819ba6cb",
+      "name": "Xăng xe",
+      "amount": 150000,
+      "status": "NoActive"
+    }
+  ]
+}

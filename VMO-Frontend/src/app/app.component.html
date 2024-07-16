@@ -1,0 +1,203 @@
+<nz-layout class="app-layout">
+  <nz-sider
+    class="menu-sidebar"
+    nzCollapsible
+    nzWidth="256px"
+    nzBreakpoint="md"
+    [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null"
+  >
+    <div class="sidebar-logo">
+      <a href="https://ng.ant.design/" target="_blank">
+        <img src="../assets/Remove-bg.ai_1719288342922.png" alt="logo" />
+        <h1 class="text-dark">VMO Holdings</h1>
+      </a>
+    </div>
+    <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li
+        nz-submenu
+        [nzOpen]="false"
+        nzTitle="Trang chủ"
+        nzIcon="dashboard"
+        routerLink="/welcome"
+        nzOverflowCheck
+      >
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/welcome">Trang chủ</a>
+          </li>
+        </ul>
+      </li>
+      <li
+        nz-submenu
+        [nzOpen]="false"
+        nzTitle="Danh mục"
+        nzIcon="bars"
+        nzOverflowCheck
+      >
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/chuc-danh" class="router-sub">Chức danh</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/loai-hop-dong" class="router-sub">Loại hợp đồng</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/phu-cap" class="router-sub">Phụ cấp</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/che-do-phuc-loi" class="router-sub"
+              >Chế độ phúc lợi</a
+            >
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/tinh-thanh" class="router-sub">Tỉnh thành</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/tai-san-cap-phat" class="router-sub"
+              >Tài sản cấp phát</a
+            >
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/ngan-hang" class="router-sub">Ngân hàng</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/chi-nhanh-ngan-hang" class="router-sub"
+              >Chi nhánh ngân hàng</a
+            >
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/noi-dang-ky-kham-chua-benh" class="router-sub"
+              >Nơi đăng ký khám chữa bệnh</a
+            >
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/khac" class="router-sub">Khác</a>
+          </li>
+        </ul>
+      </li>
+      <li
+        nz-submenu
+        [nzOpen]="false"
+        nzTitle="Nghiệp vụ quản lý"
+        nzIcon="form"
+        nzOverflowCheck
+      >
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/ho-so" class="router-sub">Hồ sơ nhân viên</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/thong-tin-cong-tac-luong" class="router-sub"
+              >Thông tin công tác–lương</a
+            >
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/quyet-dinh" class="router-sub">Quyết định</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/hop-dong-lao-dong" class="router-sub"
+              >Hợp đồng lao động</a
+            >
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/phu-cap" class="router-sub">Phụ cấp</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/phuc-loi" class="router-sub">Phúc lợi</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/cap-phat-tai-san" class="router-sub"
+              >Cấp phát tài sản</a
+            >
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/ky-luat" class="router-sub">Kỷ luật</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/khen-thuong" class="router-sub">Khen thưởng</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/nghi-viec" class="router-sub">Nghỉ việc</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/tep-tin-dinh-kem" class="router-sub"
+              >Tệp tin đính kèm</a
+            >
+          </li>
+        </ul>
+      </li>
+      <li
+        nz-submenu
+        [nzOpen]="false"
+        nzTitle="Thiết lập"
+        nzIcon="setting"
+        nzOverflowCheck
+      >
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/chi-tiet-phu-cap" class="router-sub"
+              >Chi tiết phụ cấp</a
+            >
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/chi-tiet-che do phuc-loi" class="router-sub"
+              >Chi tiết chế độ phúc lợi</a
+            >
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/so-do-to-chuc-theo-phong-ban" class="router-sub"
+              >Sơ đồ tổ chức theo Phòng ban</a
+            >
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/chuc-danh-theo-don-vi" class="router-sub"
+              >Chức danh theo đơn vị</a
+            >
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/so-ngay-reminder" class="router-sub"
+              >Số ngày Reminder</a
+            >
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div class="app-header">
+        <div>
+          <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+            <span
+              class="trigger"
+              nz-icon
+              [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+            ></span>
+          </span>
+        </div>
+        <div class="right-name">
+          <a>Trịnh Quốc Vương</a>
+          <span nzIcon="dashboard"></span>
+          <img src="../assets/download.jpg" alt="Avatar" class="img-circle" />
+        </div>
+      </div>
+    </nz-header>
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
+
+
+<!-- tạo thông báo chung -->
+<nz-alert class="notification-alert"
+  [nzType]="alertType"
+  *ngIf="isSuccessAlertVisible"
+  [nzMessage]="alertMessage"
+  [nzDescription]="alertDescription"
+  nzShowIcon
+  [@slideInOut]="'in'"
+></nz-alert>

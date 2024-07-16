@@ -1,0 +1,17 @@
+D:\Code\Projects\VMO\VMO-Back\Share\bin\Debug\net7.0\Share.deps.json
+D:\Code\Projects\VMO\VMO-Back\Share\bin\Debug\net7.0\Share.dll
+D:\Code\Projects\VMO\VMO-Back\Share\bin\Debug\net7.0\Share.pdb
+D:\Code\Projects\VMO\VMO-Back\Share\bin\Debug\net7.0\Model.dll
+D:\Code\Projects\VMO\VMO-Back\Share\bin\Debug\net7.0\Model.pdb
+D:\Code\Projects\VMO\VMO-Back\Share\obj\Debug\net7.0\Share.csproj.AssemblyReference.cache
+D:\Code\Projects\VMO\VMO-Back\Share\obj\Debug\net7.0\Share.GeneratedMSBuildEditorConfig.editorconfig
+D:\Code\Projects\VMO\VMO-Back\Share\obj\Debug\net7.0\Share.AssemblyInfoInputs.cache
+D:\Code\Projects\VMO\VMO-Back\Share\obj\Debug\net7.0\Share.AssemblyInfo.cs
+D:\Code\Projects\VMO\VMO-Back\Share\obj\Debug\net7.0\Share.csproj.CoreCompileInputs.cache
+D:\Code\Projects\VMO\VMO-Back\Share\obj\Debug\net7.0\Share.csproj.Up2Date
+D:\Code\Projects\VMO\VMO-Back\Share\obj\Debug\net7.0\Share.dll
+D:\Code\Projects\VMO\VMO-Back\Share\obj\Debug\net7.0\refint\Share.dll
+D:\Code\Projects\VMO\VMO-Back\Share\obj\Debug\net7.0\Share.pdb
+D:\Code\Projects\VMO\VMO-Back\Share\obj\Debug\net7.0\ref\Share.dll
+D:\Code\Projects\VMO\VMO-Back\Share\bin\Debug\net7.0\Core.dll
+D:\Code\Projects\VMO\VMO-Back\Share\bin\Debug\net7.0\Core.pdb

@@ -1,0 +1,204 @@
+<div class="title">
+  <p>Quản lý chức danh</p>
+</div>
+<div class="layout" style="margin-bottom: 20px">
+  <div style="width: 20%; height: 40px" class="custom-input-group">
+    <nz-input-group
+      nzSearch
+      [nzAddOnAfter]="suffixIconButton"
+      style="padding: 7px"
+    >
+      <input type="text" nz-input placeholder="Tìm kiếm" />
+    </nz-input-group>
+    <ng-template #suffixIconButton>
+      <button nz-button nzType="primary" nzSearch>
+        <span nz-icon nzType="search"></span>
+      </button>
+    </ng-template>
+  </div>
+
+  <button class="btn btn-success mb-10" (click)="formTitle()">
+    Thêm mới
+  </button>
+</div>
+
+<nz-table #nzTable [nzData]="listTitle" nzTableLayout="fixed">
+  <thead>
+    <tr>
+      <th class="text-center align-middle stt-column">STT</th>
+      <th class="text-center align-middle">Tên chức danh</th>
+      <th class="text-center align-middle">Mã chức danh</th>
+      <th class="text-center align-middle">Tên phòng ban</th>
+      <th class="text-center align-middle">Mã phòng ban</th>
+      <th class="text-center align-middle">Trạng thái</th>
+      <th class="text-center align-middle action-column">Thao tác</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of listTitle; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ data.name }}</td>
+      <td>{{ data.titleCode }}</td>
+      <td>{{ data.department.name }}</td>
+      <td>{{ data.department.departmentCode }}</td>
+      <td *ngIf="data.status == 0" style="color: #faad14; font-weight: 500">
+        Không hiệu lực
+      </td>
+      <td *ngIf="data.status == 1" style="color: #12d416">Hiệu lực</td>
+      <td>
+        <div class="button-title">
+          <span
+            nz-icon
+            nzType="edit"
+            nzTheme="outline"
+            class="action-button update-button"
+            nz-tooltip
+            nzTooltipTitle="Sửa"
+            (click)="formTitle()"
+          ></span>
+          <span
+            nz-icon
+            nzType="delete"
+            nzTheme="outline"
+            class="action-button delete-button"
+            nz-tooltip
+            nzTooltipTitle="Xóa"
+            (click)="deleteTitle(data)"
+          ></span>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+
+
+<!-- THÊM CHỨC DANH -->
+<div class="add-title-form" *ngIf="isNewTitleFormVisible">
+  <div class="close-btn">
+    <button
+      type="button"
+      class="close-button"
+      (click)="hideNewTitleForm()"
+      style="background-color: rgb(255, 255, 255); border: rgb(255, 255, 255)"
+    >
+      <span nz-icon nzType="close" nzTheme="outline"></span>
+    </button>
+  </div>
+  <div>
+    <p style="font-size: 20px">Thêm chức danh</p>
+  </div>
+  <div style="width: 100%">
+    <form nz-form [formGroup]="titleForm" (ngSubmit)="submitNewTitle()">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Tên chức danh</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+          <input nz-input formControlName="userName" required />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Mã chức danh</nz-form-label>
+        <nz-form-control [nzSpan]="12">
+          <input nz-input formControlName="titleCodeMax" value="{{titleCodeMax}}" readonly />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Phòng ban</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzRequired>
+          <button
+            nz-button
+            nz-dropdown
+            [nzDropdownMenu]="menu4"
+            type="button"
+            style="
+              width: 100%;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            "
+          >
+            <span *ngIf="selectedDepartment">{{
+              selectedDepartment.name
+            }}</span>
+            <span *ngIf="!selectedDepartment">&nbsp;</span>
+            <span
+              nz-icon
+              nzType="down"
+              style="right: 0; justify-content: end"
+            ></span>
+          </button>
+
+          <nz-dropdown-menu #menu4="nzDropdownMenu">
+            <ul nz-menu nzModel="selectedDepartment">
+              <li
+                nz-menu-item
+                *ngFor="let department of listDepartment"
+                (click)="selectDepartment(department)"
+              >
+                {{ department.name }}
+              </li>
+            </ul>
+          </nz-dropdown-menu>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Mã phòng ban</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzRequired>
+          <input
+            nz-input
+            formControlName="mobile"
+            value="{{ departmentCode }}"
+            readonly
+          />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Trạng thái</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzRequired>
+          <button
+            nz-button
+            nz-dropdown
+            [nzDropdownMenu]="menu5"
+            type="button"
+            style="
+              width: 100%;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            "
+          >
+            <span *ngIf="selectedStatus">{{
+              selectedStatus
+            }}</span>
+            <span *ngIf="!selectedStatus">&nbsp;</span>
+            <span
+              nz-icon
+              nzType="down"
+              style="right: 0; justify-content: end"
+            ></span>
+          </button>
+          <nz-dropdown-menu #menu5="nzDropdownMenu" >
+            <ul nz-menu nzModel="ActiveStatus">
+              <li nz-menu-item (click)="selectStatus(1)">Áp dụng</li>
+              <li nz-menu-item (click)="selectStatus(0)">Không áp dụng</li>
+            </ul>
+          </nz-dropdown-menu>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control [nzOffset]="7" [nzSpan]="3">
+          <button nz-button nzType="primary" (click)="submitNewTitle()">Lưu</button>
+        </nz-form-control>
+        <nz-form-control [nzSpan]="9">
+          <button nz-button nzType="default" (click)="hideNewTitleForm()">
+            Hủy
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+</div>
