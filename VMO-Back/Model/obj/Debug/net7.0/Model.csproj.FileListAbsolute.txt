@@ -9,3 +9,4 @@ D:\Code\Projects\VMO\VMO-Back\Model\obj\Debug\net7.0\Model.dll
 D:\Code\Projects\VMO\VMO-Back\Model\obj\Debug\net7.0\refint\Model.dll
 D:\Code\Projects\VMO\VMO-Back\Model\obj\Debug\net7.0\Model.pdb
 D:\Code\Projects\VMO\VMO-Back\Model\obj\Debug\net7.0\ref\Model.dll
+D:\Code\Projects\VMO\VMO-Back\Model\obj\Debug\net7.0\Model.sourcelink.json

@@ -60,9 +60,7 @@ namespace Share
             CreateMap<BenefitUpdateDto, Benefit>().ReverseMap();
 
             CreateMap<BenefitSalaryProfile, BenefitSalaryProfileDto>().ReverseMap();
-            CreateMap<BenefitSalaryProfileAddDto, BenefitSalaryProfile>()
-                .ForMember(src => src.BenefitSalaryProfileId, dest => dest.MapFrom(c => ObjectExtentions.GenerateGuid()))
-                .ReverseMap();
+            CreateMap<BenefitSalaryProfileAddDto, BenefitSalaryProfile>().ReverseMap();
             CreateMap<BenefitSalaryProfileUpdateDto, Benefit>().ReverseMap();
 
             //Allowance
@@ -73,9 +71,7 @@ namespace Share
             CreateMap<AllowanceUpdateDto, Allowance>().ReverseMap();
             
             CreateMap<AllowanceSalaryProfile, AllowanceSalaryProfileDto>().ReverseMap();
-            CreateMap<AllowanceSalaryProfileAddDto, AllowanceSalaryProfile>()
-                .ForMember(src => src.AllowanceSalaryProfileId, dest => dest.MapFrom(c => ObjectExtentions.GenerateGuid()))
-                .ReverseMap();
+            CreateMap<AllowanceSalaryProfileAddDto, AllowanceSalaryProfile>().ReverseMap();
             CreateMap<AllowanceSalaryProfileUpdateDto, AllowanceSalaryProfile>().ReverseMap();
         }
     }

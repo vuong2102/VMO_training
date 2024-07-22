@@ -18,7 +18,13 @@
       "benefitId": "28efd726c63a47bfa3ae47682f8c533a",
       "type": "Xăng xe",
       "expense": 150000,
-      "status": "NoActive"
+      "status": "Active"
+    },
+    {
+      "benefitId": "3208ba6496ed4566b71ed9cfdeef773c",
+      "type": "Khu vực",
+      "expense": 400000,
+      "status": "Active"
     }
   ],
   "allowances": [

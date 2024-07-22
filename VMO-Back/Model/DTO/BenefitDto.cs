@@ -12,7 +12,7 @@ namespace Model.DTO
     {
         public string BenefitId { get; set; }
         public string Type { get; set; }
-        public Decimal Expense { get; set; }
+        public int Expense { get; set; }
         public ActiveStatus Status { get; set; }
     }
 

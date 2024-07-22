@@ -18,15 +18,6 @@ namespace Model.Model
         public SalaryProfile? SalaryProfile { get; set; }
         public DateTime CreateDate { get; set; }
         public ActiveStatus Status { get; set; }
-        /*public BenefitSalaryProfile(Benefit benefit, string benefitId, SalaryProfile salaryProfile, string SalaryProfileId, ActiveStatus status)
-        {
-            BenefitSalaryProfileId = Guid.NewGuid().ToString();
-            BenefitId = benefitId;
-            Benefit = benefit;
-            SalaryProfileId = SalaryProfileId;
-            SalaryProfile = salaryProfile;
-            CreateDate = DateTime.UtcNow;
-            Status = status;
-        }*/
+
     }
 }

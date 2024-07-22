@@ -38,6 +38,8 @@ builder.Services.AddScoped<IContractTypeRepository, ContractTypeRepository>();
 builder.Services.AddScoped<IContractRepository, ContractRepository>();
 builder.Services.AddScoped<IBenefitRepository, BenefitRepository>();
 builder.Services.AddScoped<ISalaryProfileRepository, SalaryProfileRepository>();
+builder.Services.AddScoped<ISalaryProfileAllowanceRepository, SalaryProfileAllowanceRepositosy>();
+builder.Services.AddScoped<ISalaryProfileBenefitRepository, SalaryProfileBenefitRepositosy>();
 builder.Services.AddScoped<IAllowanceRepository, AllowanceRepository>();
 
 var app = builder.Build();

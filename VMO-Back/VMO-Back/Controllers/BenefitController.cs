@@ -41,7 +41,7 @@ namespace VMO_Back.Controllers
                         PageIndex = 0,
                         PageSize = 15
                     },
-                    Status = ActiveStatus.All
+                    Status = ActiveStatus.Active
                 };
                 var filter = model.CreateFilter(_BenefitRepository.GetQueryable());
                 var data = await _BenefitRepository.ExecuteWithTransactionAsync(filter);

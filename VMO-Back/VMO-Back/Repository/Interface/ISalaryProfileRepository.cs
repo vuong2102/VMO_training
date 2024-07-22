@@ -1,6 +1,7 @@
 ﻿using Core.Pattern.Repository;
 using Microsoft.EntityFrameworkCore;
 using Model.Model;
+using static Service.IService.IEmployeeService;
 
 namespace VMO_Back.Repository.Interface
 {
@@ -8,7 +9,7 @@ namespace VMO_Back.Repository.Interface
     {
         IQueryable<SalaryProfile> GetQueryable();
 
-        Task<List<SalaryProfile>> GetAllWithFilterAsync();
+        Task<List<SalaryProfile>> GetAllWithFilterAsync(EmployeeSearch model);
 
     }
 }

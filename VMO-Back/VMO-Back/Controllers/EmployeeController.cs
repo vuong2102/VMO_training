@@ -18,7 +18,7 @@ namespace VMO_Back.Controllers
         readonly ILogger<EmployeeController> _logger;
         readonly IEmployeeRepository _employeeRepository;
         readonly IDepartmentRepository _departmentRepository;
-        readonly ITitleRepository _titleRepository;
+        readonly ITitleRepository _contractRepository;
         readonly IMapper _mapper;
 
         public EmployeeController(
@@ -32,7 +32,7 @@ namespace VMO_Back.Controllers
             _logger = logger;
             _employeeRepository = employeeRepository;
             _departmentRepository = departmentRepository;
-            _titleRepository = titleRepository;
+            _contractRepository = titleRepository;
         }
 
         [HttpGet]
@@ -55,7 +55,7 @@ namespace VMO_Back.Controllers
 
                 foreach (var item in data)
                 {
-                    item.Title = await _titleRepository.GetAsync(c => c.TitleId == item.TitleId);
+                    item.Title = await _contractRepository.GetAsync(c => c.TitleId == item.TitleId);
                     item.Department = await _departmentRepository.GetAsync(c => c.DepartmentId == item.DepartmentId);
                 }
 
@@ -90,15 +90,15 @@ namespace VMO_Back.Controllers
                         PageSize = 15
                     },
                     DepartmentId = departmentId,
-                    TitleId = titleId,
+                    TitleId = titleId,       
                     Status = Model.Utils.ActiveStatus.All
                 };
                 var filter = model.CreateFilter(_employeeRepository.GetQueryable());
-                var data = await _employeeRepository.ExecuteWithTransactionAsync(filter);
+                var data = await _employeeRepository.GetAllWithFilterAsync(model);
 
                 foreach (var item in data)
                 {
-                    item.Title = await _titleRepository.GetAsync(c => c.TitleId == item.TitleId);
+                    item.Title = await _contractRepository.GetAsync(c => c.TitleId == item.TitleId);
                     item.Department = await _departmentRepository.GetAsync(c => c.DepartmentId == item.DepartmentId);
                 }
 
@@ -150,7 +150,7 @@ namespace VMO_Back.Controllers
                 }
                 var employee = _mapper.Map<EmployeeDto>(result);
                 var departmentData = await _departmentRepository.GetAsync(c => c.DepartmentId == result.DepartmentId);
-                var titleData = await _titleRepository.GetAsync(c => c.TitleId == result.TitleId);
+                var titleData = await _contractRepository.GetAsync(c => c.TitleId == result.TitleId);
 
                 employee.Department = _mapper.Map<DepartmentDto>(departmentData);
                 employee.Title = _mapper.Map<TitleDetailDto>(titleData);

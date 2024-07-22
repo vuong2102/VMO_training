@@ -36,7 +36,7 @@ namespace VMO_Back.Controllers
 
                 if (ContractsDto == null)
                 {
-                    return new NotFoundRecordResult<List<ContractDto>>("Không có nhân viên");
+                    return new NotFoundRecordResult<List<ContractDto>>("Không có hợp đồng");
                 }
                 return new ExcuteResult<List<ContractDto>>(ContractsDto, ResultCode.SuccessResult, null);
             }
@@ -57,7 +57,7 @@ namespace VMO_Back.Controllers
                 var result = await _contractRepository.AddEntityAsync(Contract);
                 if (!result)
                 {
-                    return new NotFoundRecordResult<ContractAddDto>("Không có nhân viên");
+                    return new NotFoundRecordResult<ContractAddDto>("Không có hợp đồng");
                 }
                 return new ExcuteResult<ContractAddDto>(dto, ResultCode.SuccessResult, null);
             }
@@ -65,6 +65,72 @@ namespace VMO_Back.Controllers
             {
                 _logger.LogError(ex, ex.Message);
                 return new ExcuteResult<ContractAddDto>(null) { Code = ResultCode.ExceptionResult, ErrorMessage = ex.Message };
+            }
+        }
+
+        [HttpGet]
+        [Route("detail")]
+        public async Task<ExcuteResult<ContractDto>> GetTitleByIdAsync(string id)
+        {
+            try
+            {
+                var result = await _contractRepository.GetAsync(c => c.ContractId == id);
+                if (result == null)
+                {
+                    return new NotFoundRecordResult<ContractDto>("Không thể thêm phòng ban");
+                }
+                var contract = _mapper.Map<ContractDto>(result);
+                return new ExcuteResult<ContractDto>(contract, ResultCode.SuccessResult, null);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return new ExcuteResult<ContractDto>(null) { Code = ResultCode.ExceptionResult, ErrorMessage = ex.Message };
+            }
+        }
+
+        [HttpPut]
+        [Route("update")]
+        public async Task<ExcuteResult<bool?>> UpdateAsync(ContractUpdateDto model)
+        {
+            try
+            {
+                _contractRepository.BeginTransaction();
+                var existEntity = await _contractRepository.GetAsync(c => c.ContractId == model.ContractId);
+                var Title = _mapper.Map(model, existEntity);
+
+                await _contractRepository.UpdateEntityAsync(Title, false);
+                var updateResult = await _contractRepository.CommitTransactionAsync();
+                if (!updateResult)
+                {
+                    return new NotFoundRecordResult<bool?>("Không thể cập nhật hợp đồng");
+                }
+                return new ExcuteResult<bool?>(updateResult, ResultCode.SuccessResult, null);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return new ExcuteResult<bool?>(null) { Code = ResultCode.ExceptionResult, ErrorMessage = ex.Message };
+            }
+        }
+
+        [HttpDelete]
+        [Route("delete")]
+        public async Task<ExcuteResult<bool?>> DeleteTitle(string id)
+        {
+            try
+            {
+                var result = await _contractRepository.DeleteAsync(id);
+                if (!result)
+                {
+                    return new NotFoundRecordResult<bool?>("Không thể xóa hợp đồng");
+                }
+                return new ExcuteResult<bool?>(result, ResultCode.SuccessResult, null);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return new ExcuteResult<bool?>(null) { Code = ResultCode.ExceptionResult, ErrorMessage = ex.Message };
             }
         }
     }

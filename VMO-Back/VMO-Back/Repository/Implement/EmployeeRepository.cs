@@ -1,6 +1,9 @@
 ﻿using Core.Pattern.Repository;
+using Microsoft.EntityFrameworkCore.Internal;
 using Model.Model;
+using System.Linq;
 using VMO_Back.Repository.Interface;
+using static Service.IService.IEmployeeService;
 
 namespace VMO_Back.Repository.Implement
 {
@@ -12,15 +15,19 @@ namespace VMO_Back.Repository.Implement
         {
             return _context.Set<Employee>();
         }
-        public async Task<List<Employee>> GetAllWithFilterAsync()
+        public async Task<List<Employee>> GetAllWithFilterAsync(EmployeeSearch model)
         {
             try
             {
                 BeginTransaction();
-                List<Employee> employees = new List<Employee>();
-                employees.Add(new Employee());
+                var employeeDatas = (from Employee emp in _context.Set<Employee>()
+                                    join SalaryProfile sa in _context.Set<SalaryProfile>()
+                                    on emp.EmployeeId equals sa.EmployeeId  into es
+                                    from sa in es.DefaultIfEmpty()
+                                    where sa == null || emp.EmployeeId != sa.EmployeeId
+                                    select emp).ToList();
                 await CommitTransactionAsync();
-                return employees;
+                return employeeDatas;
             }
             catch (Exception ex)
             {

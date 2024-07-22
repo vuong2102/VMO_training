@@ -1,6 +1,8 @@
 ﻿using Core.Pattern.Repository;
 using Model.Model;
+using Service.IService;
 using VMO_Back.Repository.Interface;
+using static Service.IService.IEmployeeService;
 
 namespace VMO_Back.Repository.Implement
 {
@@ -11,7 +13,7 @@ namespace VMO_Back.Repository.Implement
         {
             return _context.Set<SalaryProfile>();
         }
-        public async Task<List<SalaryProfile>> GetAllWithFilterAsync()
+        public async Task<List<SalaryProfile>> GetAllWithFilterAsync(EmployeeSearch model)
         {
             try
             {

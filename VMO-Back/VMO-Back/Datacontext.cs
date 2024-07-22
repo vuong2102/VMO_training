@@ -18,7 +18,9 @@ namespace VMO_Back
         public DbSet<AllocatedAssets> AllocatedAssets { get; set; }
         public DbSet<Allowance> Allowance { get; set; }
         public DbSet<Benefit> Benefit { get; set; }
+        public DbSet<SalaryProfile> SalaryProfile { get; set; }
         public DbSet<BenefitSalaryProfile> BenefitSalaryProfiles { get; set; }
+        public DbSet<AllowanceSalaryProfile> AllowanceSalaryProfiles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -77,69 +79,6 @@ namespace VMO_Back
                 .HasOne(sp => sp.Employee)
                 .WithOne(b => b.SalaryProfile)
                 .HasForeignKey<SalaryProfile>(bsp => bsp.EmployeeId);
-
-            /* modelBuilder.Entity<Employee>()
-                 .HasOne(e => e.Contract)
-                 .WithOne(c => c.Employee)
-                 .HasForeignKey<Employee>(c => c.EmployeeId);*/
-            //
-            /*            modelBuilder.Entity<AllocatedAssets>()
-                            .HasOne(e => e.Employee)
-                            .WithMany(d => d.AllocatedAssets);
-
-                        modelBuilder.Entity<Contract>()
-                            .HasOne(e => e.ContractType)
-                            .WithMany(c => c.Contracts)
-                            .OnDelete(DeleteBehavior.NoAction);
-
-                        modelBuilder.Entity<Contract>()
-                            .HasOne(e => e.Employee)
-                            .WithOne(c => c.Contract)
-                            .HasForeignKey<Employee>(c => c.EmployeeId);
-
-                        modelBuilder.Entity<Contract>()
-                            .HasOne(e => e.SalaryProfile)
-                            .WithOne(c => c.Contract)
-                            .HasForeignKey<Contract>(e => e.SalaryProfileId);
-
-                        //SalaryProfile
-                        modelBuilder.Entity<BenefitSalaryProfile>()
-                            .HasKey(bsp => new { bsp.BenefitId, bsp.SalaryProfileId });
-
-                        modelBuilder.Entity<BenefitSalaryProfile>()
-                            .HasOne(bsp => bsp.Benefit)
-                            .WithMany(b => b.BenefitSalaryProfiles)
-                            .HasForeignKey(bsp => bsp.BenefitId);
-
-                        modelBuilder.Entity<BenefitSalaryProfile>()
-                            .HasOne(bsp => bsp.SalaryProfile)
-                            .WithMany(sp => sp.BenefitSalaryProfiles)
-                            .HasForeignKey(bsp => bsp.SalaryProfileId);
-
-                        modelBuilder.Entity<SalaryProfile>()
-                            .HasMany(sp => sp.ListAllowance)
-                            .WithOne(b => b.SalaryProfile)
-                            .HasForeignKey(b => b.SalaryProfileId);
-
-                        modelBuilder.Entity<SalaryProfile>()
-                           .HasOne(sp => sp.Employee)
-                           .WithOne(b => b.SalaryProfile)
-                           .HasForeignKey<Employee>(b => b.EmployeeId);
-
-
-                        //Department
-                        modelBuilder.Entity<Department>()
-                            .HasMany(sp => sp.ListTitle)
-                            .WithOne(b => b.Department)
-                            .HasForeignKey(b => b.DepartmentId);
-
-
-                        modelBuilder.Entity<Department>()
-                            .HasMany(sp => sp.ListEmployee)
-                            .WithOne(b => b.Department)
-                            .HasForeignKey(b => b.DepartmentId);*/
-
-            //
         }
     }
 }

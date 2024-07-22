@@ -21,9 +21,9 @@ namespace Model.Model
 
 
         //Relationship
-        public string? TitleId { get; set; }
+        public string TitleId { get; set; }
         public Title? Title { get; set; }
-        public string? DepartmentId { get; set; }
+        public string DepartmentId { get; set; }
         public Department? Department { get; set; }
         public Contract? Contract { get; set; }
         public SalaryProfile? SalaryProfile { get; set; }

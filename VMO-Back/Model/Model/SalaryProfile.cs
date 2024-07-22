@@ -14,12 +14,13 @@ namespace Model.Model
         public int Bonus { get; set; }
         public int Deduction { get; set; }
         public int NetSalary { get; set; }
+        public int GrossSalary { get; set; }
         public string SalaryRank { get; set; }
         public string SalaryLevel { get; set; }
         public DateTime CreateDate { get; set; }
-        public string CreatorId { get; set; }
-        public DateTime UpdateDate { get; set; }
-        public string UpdaterId { get; set; }
+        public string? CreatorId { get; set; }
+        public DateTime? UpdateDate { get; set; }
+        public string? UpdaterId { get; set; }
         public ActiveStatus Status { get; set; }
 
         //Relationship

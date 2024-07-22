@@ -3,48 +3,16 @@
   "WorkspaceRootPath": "D:\\Code\\Projects\\VMO\\VMO-Back\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B0AC090F-E9E5-49A0-9AB6-93726CFCC9FE}|VMO-Back\\VMO-Back.csproj|d:\\code\\projects\\vmo\\vmo-back\\vmo-back\\controllers\\employeecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B0AC090F-E9E5-49A0-9AB6-93726CFCC9FE}|VMO-Back\\VMO-Back.csproj|solutionrelative:vmo-back\\controllers\\employeecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EA410772-12C1-4147-B162-0FC1A6E979C3}|Model\\Model.csproj|d:\\code\\projects\\vmo\\vmo-back\\model\\model\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EA410772-12C1-4147-B162-0FC1A6E979C3}|Model\\Model.csproj|solutionrelative:model\\model\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A90D5FC7-C5D8-4570-AD80-A75EB73FA9C5}|Service\\Service.csproj|d:\\code\\projects\\vmo\\vmo-back\\service\\iservice\\iemployeeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A90D5FC7-C5D8-4570-AD80-A75EB73FA9C5}|Service\\Service.csproj|solutionrelative:service\\iservice\\iemployeeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B0AC090F-E9E5-49A0-9AB6-93726CFCC9FE}|VMO-Back\\VMO-Back.csproj|d:\\code\\projects\\vmo\\vmo-back\\vmo-back\\controllers\\titlecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B0AC090F-E9E5-49A0-9AB6-93726CFCC9FE}|VMO-Back\\VMO-Back.csproj|solutionrelative:vmo-back\\controllers\\titlecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EA410772-12C1-4147-B162-0FC1A6E979C3}|Model\\Model.csproj|d:\\code\\projects\\vmo\\vmo-back\\model\\model\\salaryprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EA410772-12C1-4147-B162-0FC1A6E979C3}|Model\\Model.csproj|solutionrelative:model\\model\\salaryprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{B0AC090F-E9E5-49A0-9AB6-93726CFCC9FE}|VMO-Back\\VMO-Back.csproj|d:\\code\\projects\\vmo\\vmo-back\\vmo-back\\controllers\\salaryprofilecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B0AC090F-E9E5-49A0-9AB6-93726CFCC9FE}|VMO-Back\\VMO-Back.csproj|solutionrelative:vmo-back\\controllers\\salaryprofilecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{B0AC090F-E9E5-49A0-9AB6-93726CFCC9FE}|VMO-Back\\VMO-Back.csproj|d:\\code\\projects\\vmo\\vmo-back\\vmo-back\\controllers\\contractcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B0AC090F-E9E5-49A0-9AB6-93726CFCC9FE}|VMO-Back\\VMO-Back.csproj|solutionrelative:vmo-back\\controllers\\contractcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{EA410772-12C1-4147-B162-0FC1A6E979C3}|Model\\Model.csproj|d:\\code\\projects\\vmo\\vmo-back\\model\\dto\\salaryprofiledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{EA410772-12C1-4147-B162-0FC1A6E979C3}|Model\\Model.csproj|solutionrelative:model\\dto\\salaryprofiledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EA410772-12C1-4147-B162-0FC1A6E979C3}|Model\\Model.csproj|d:\\code\\projects\\vmo\\vmo-back\\model\\model\\allowance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EA410772-12C1-4147-B162-0FC1A6E979C3}|Model\\Model.csproj|solutionrelative:model\\model\\allowance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B0AC090F-E9E5-49A0-9AB6-93726CFCC9FE}|VMO-Back\\VMO-Back.csproj|d:\\code\\projects\\vmo\\vmo-back\\vmo-back\\controllers\\allowancecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B0AC090F-E9E5-49A0-9AB6-93726CFCC9FE}|VMO-Back\\VMO-Back.csproj|solutionrelative:vmo-back\\controllers\\allowancecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B0AC090F-E9E5-49A0-9AB6-93726CFCC9FE}|VMO-Back\\VMO-Back.csproj|d:\\code\\projects\\vmo\\vmo-back\\vmo-back\\repository\\implement\\salaryprofilerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B0AC090F-E9E5-49A0-9AB6-93726CFCC9FE}|VMO-Back\\VMO-Back.csproj|solutionrelative:vmo-back\\repository\\implement\\salaryprofilerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B0AC090F-E9E5-49A0-9AB6-93726CFCC9FE}|VMO-Back\\VMO-Back.csproj|d:\\code\\projects\\vmo\\vmo-back\\vmo-back\\repository\\implement\\titlerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B0AC090F-E9E5-49A0-9AB6-93726CFCC9FE}|VMO-Back\\VMO-Back.csproj|solutionrelative:vmo-back\\repository\\implement\\titlerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{EA410772-12C1-4147-B162-0FC1A6E979C3}|Model\\Model.csproj|d:\\code\\projects\\vmo\\vmo-back\\model\\model\\allowancesalaryprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -58,152 +26,64 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 5,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "TitleController.cs",
-              "DocumentMoniker": "D:\\Code\\Projects\\VMO\\VMO-Back\\VMO-Back\\Controllers\\TitleController.cs",
-              "RelativeDocumentMoniker": "VMO-Back\\Controllers\\TitleController.cs",
-              "ToolTip": "D:\\Code\\Projects\\VMO\\VMO-Back\\VMO-Back\\Controllers\\TitleController.cs",
-              "RelativeToolTip": "VMO-Back\\Controllers\\TitleController.cs",
-              "ViewState": "AQIAAGQAAAAAAAAAAAAAAHEAAAAdAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-15T09:35:11.959Z"
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "IEmployeeService.cs",
-              "DocumentMoniker": "D:\\Code\\Projects\\VMO\\VMO-Back\\Service\\IService\\IEmployeeService.cs",
-              "RelativeDocumentMoniker": "Service\\IService\\IEmployeeService.cs",
-              "ToolTip": "D:\\Code\\Projects\\VMO\\VMO-Back\\Service\\IService\\IEmployeeService.cs",
-              "RelativeToolTip": "Service\\IService\\IEmployeeService.cs",
-              "ViewState": "AQIAAEoAAAAAAAAAAAAmwF0AAAA4AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-15T09:33:45.529Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "SalaryProfileDto.cs",
-              "DocumentMoniker": "D:\\Code\\Projects\\VMO\\VMO-Back\\Model\\DTO\\SalaryProfileDto.cs",
-              "RelativeDocumentMoniker": "Model\\DTO\\SalaryProfileDto.cs",
-              "ToolTip": "D:\\Code\\Projects\\VMO\\VMO-Back\\Model\\DTO\\SalaryProfileDto.cs",
-              "RelativeToolTip": "Model\\DTO\\SalaryProfileDto.cs",
-              "ViewState": "AQIAADcAAAAAAAAAAAAzwAoAAAARAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-12T07:02:35.715Z"
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Employee.cs",
-              "DocumentMoniker": "D:\\Code\\Projects\\VMO\\VMO-Back\\Model\\Model\\Employee.cs",
-              "RelativeDocumentMoniker": "Model\\Model\\Employee.cs",
-              "ToolTip": "D:\\Code\\Projects\\VMO\\VMO-Back\\Model\\Model\\Employee.cs",
-              "RelativeToolTip": "Model\\Model\\Employee.cs",
-              "ViewState": "AQIAABMAAAAAAAAAAAAwwAUAAAARAAAA",
+              "Title": "ContractController.cs",
+              "DocumentMoniker": "D:\\Code\\Projects\\VMO\\VMO-Back\\VMO-Back\\Controllers\\ContractController.cs",
+              "RelativeDocumentMoniker": "VMO-Back\\Controllers\\ContractController.cs",
+              "ToolTip": "D:\\Code\\Projects\\VMO\\VMO-Back\\VMO-Back\\Controllers\\ContractController.cs",
+              "RelativeToolTip": "VMO-Back\\Controllers\\ContractController.cs",
+              "ViewState": "AQIAABkAAAAAAAAAAAAQwC0AAABSAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-11T09:28:55.763Z"
+              "WhenOpened": "2024-07-22T09:07:39.4Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Allowance.cs",
-              "DocumentMoniker": "D:\\Code\\Projects\\VMO\\VMO-Back\\Model\\Model\\Allowance.cs",
-              "RelativeDocumentMoniker": "Model\\Model\\Allowance.cs",
-              "ToolTip": "D:\\Code\\Projects\\VMO\\VMO-Back\\Model\\Model\\Allowance.cs",
-              "RelativeToolTip": "Model\\Model\\Allowance.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAFAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-11T08:41:11.743Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "TitleRepository.cs",
-              "DocumentMoniker": "D:\\Code\\Projects\\VMO\\VMO-Back\\VMO-Back\\Repository\\Implement\\TitleRepository.cs",
-              "RelativeDocumentMoniker": "VMO-Back\\Repository\\Implement\\TitleRepository.cs",
-              "ToolTip": "D:\\Code\\Projects\\VMO\\VMO-Back\\VMO-Back\\Repository\\Implement\\TitleRepository.cs",
-              "RelativeToolTip": "VMO-Back\\Repository\\Implement\\TitleRepository.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-11T08:12:29.492Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "EmployeeController.cs",
-              "DocumentMoniker": "D:\\Code\\Projects\\VMO\\VMO-Back\\VMO-Back\\Controllers\\EmployeeController.cs",
-              "RelativeDocumentMoniker": "VMO-Back\\Controllers\\EmployeeController.cs",
-              "ToolTip": "D:\\Code\\Projects\\VMO\\VMO-Back\\VMO-Back\\Controllers\\EmployeeController.cs",
-              "RelativeToolTip": "VMO-Back\\Controllers\\EmployeeController.cs",
-              "ViewState": "AQIAAFAAAAAAAAAAAAAqwE8AAAAQAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-11T02:55:50.284Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "SalaryProfileController.cs",
-              "DocumentMoniker": "D:\\Code\\Projects\\VMO\\VMO-Back\\VMO-Back\\Controllers\\SalaryProfileController.cs",
-              "RelativeDocumentMoniker": "VMO-Back\\Controllers\\SalaryProfileController.cs",
-              "ToolTip": "D:\\Code\\Projects\\VMO\\VMO-Back\\VMO-Back\\Controllers\\SalaryProfileController.cs",
-              "RelativeToolTip": "VMO-Back\\Controllers\\SalaryProfileController.cs",
-              "ViewState": "AQIAAC4AAAAAAAAAAAAYwDsAAAAxAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-11T06:20:23.372Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "AllowanceController.cs",
-              "DocumentMoniker": "D:\\Code\\Projects\\VMO\\VMO-Back\\VMO-Back\\Controllers\\AllowanceController.cs",
-              "RelativeDocumentMoniker": "VMO-Back\\Controllers\\AllowanceController.cs",
-              "ToolTip": "D:\\Code\\Projects\\VMO\\VMO-Back\\VMO-Back\\Controllers\\AllowanceController.cs",
-              "RelativeToolTip": "VMO-Back\\Controllers\\AllowanceController.cs",
-              "ViewState": "AQIAAB0AAAAAAAAAAAAAwCEAAAAzAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-09T09:17:07.372Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "SalaryProfile.cs",
-              "DocumentMoniker": "D:\\Code\\Projects\\VMO\\VMO-Back\\Model\\Model\\SalaryProfile.cs",
-              "RelativeDocumentMoniker": "Model\\Model\\SalaryProfile.cs",
-              "ToolTip": "D:\\Code\\Projects\\VMO\\VMO-Back\\Model\\Model\\SalaryProfile.cs",
-              "RelativeToolTip": "Model\\Model\\SalaryProfile.cs",
-              "ViewState": "AQIAABMAAAAAAAAAAIA8wBsAAAAYAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-08T10:15:35.093Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 3,
               "Title": "AllowanceSalaryProfile.cs",
               "DocumentMoniker": "D:\\Code\\Projects\\VMO\\VMO-Back\\Model\\Model\\AllowanceSalaryProfile.cs",
               "RelativeDocumentMoniker": "Model\\Model\\AllowanceSalaryProfile.cs",
               "ToolTip": "D:\\Code\\Projects\\VMO\\VMO-Back\\Model\\Model\\AllowanceSalaryProfile.cs",
               "RelativeToolTip": "Model\\Model\\AllowanceSalaryProfile.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAkAAAASAAAA",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAxwAYAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-09T06:20:33.218Z"
+              "WhenOpened": "2024-07-22T08:08:19.592Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "SalaryProfileRepository.cs",
-              "DocumentMoniker": "D:\\Code\\Projects\\VMO\\VMO-Back\\VMO-Back\\Repository\\Implement\\SalaryProfileRepository.cs",
-              "RelativeDocumentMoniker": "VMO-Back\\Repository\\Implement\\SalaryProfileRepository.cs",
-              "ToolTip": "D:\\Code\\Projects\\VMO\\VMO-Back\\VMO-Back\\Repository\\Implement\\SalaryProfileRepository.cs",
-              "RelativeToolTip": "VMO-Back\\Repository\\Implement\\SalaryProfileRepository.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAsAAAAtAAAA",
+              "DocumentIndex": 2,
+              "Title": "SalaryProfileDto.cs",
+              "DocumentMoniker": "D:\\Code\\Projects\\VMO\\VMO-Back\\Model\\DTO\\SalaryProfileDto.cs",
+              "RelativeDocumentMoniker": "Model\\DTO\\SalaryProfileDto.cs",
+              "ToolTip": "D:\\Code\\Projects\\VMO\\VMO-Back\\Model\\DTO\\SalaryProfileDto.cs",
+              "RelativeToolTip": "Model\\DTO\\SalaryProfileDto.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAIA6wB4AAAAqAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-09T06:39:40.945Z"
+              "WhenOpened": "2024-07-22T08:05:46.814Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SalaryProfileController.cs",
+              "DocumentMoniker": "D:\\Code\\Projects\\VMO\\VMO-Back\\VMO-Back\\Controllers\\SalaryProfileController.cs",
+              "RelativeDocumentMoniker": "VMO-Back\\Controllers\\SalaryProfileController.cs",
+              "ToolTip": "D:\\Code\\Projects\\VMO\\VMO-Back\\VMO-Back\\Controllers\\SalaryProfileController.cs",
+              "RelativeToolTip": "VMO-Back\\Controllers\\SalaryProfileController.cs",
+              "ViewState": "AQIAAFkAAAAAAAAAAAAcwGcAAAA7AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-11T06:20:23.372Z",
+              "EditorCaption": ""
             }
           ]
         }

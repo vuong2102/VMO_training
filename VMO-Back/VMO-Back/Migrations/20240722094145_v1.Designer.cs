@@ -12,8 +12,8 @@ using VMO_Back;
 namespace VMO_Back.Migrations
 {
     [DbContext(typeof(Datacontext))]
-    [Migration("20240711025131_v7")]
-    partial class v7
+    [Migration("20240722094145_v1")]
+    partial class v1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -83,9 +83,8 @@ namespace VMO_Back.Migrations
 
             modelBuilder.Entity("Model.Model.AllowanceSalaryProfile", b =>
                 {
-                    b.Property<Guid>("AllowanceSalaryProfileId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("AllowanceSalaryProfileId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AllowanceId")
                         .IsRequired()
@@ -107,7 +106,7 @@ namespace VMO_Back.Migrations
 
                     b.HasIndex("SalaryProfileId");
 
-                    b.ToTable("AllowanceSalaryProfile");
+                    b.ToTable("AllowanceSalaryProfiles");
                 });
 
             modelBuilder.Entity("Model.Model.Benefit", b =>
@@ -138,8 +137,8 @@ namespace VMO_Back.Migrations
                     b.Property<string>("SalaryProfileId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid>("BenefitSalaryProfileId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("BenefitSalaryProfileId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
@@ -279,6 +278,7 @@ namespace VMO_Back.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DepartmentId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Email")
@@ -301,6 +301,7 @@ namespace VMO_Back.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("TitleId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("EmployeeId");
@@ -324,17 +325,22 @@ namespace VMO_Back.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ContractId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatorId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Deduction")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EmployeeId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("GrossSalary")
                         .HasColumnType("int");
 
                     b.Property<int>("NetSalary")
@@ -351,14 +357,16 @@ namespace VMO_Back.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UpdateDate")
+                    b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdaterId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("SalaryProfileId");
+
+                    b.HasIndex("EmployeeId")
+                        .IsUnique();
 
                     b.ToTable("SalaryProfile");
                 });
@@ -468,15 +476,30 @@ namespace VMO_Back.Migrations
                 {
                     b.HasOne("Model.Model.Department", "Department")
                         .WithMany("Employees")
-                        .HasForeignKey("DepartmentId");
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Model.Model.Title", "Title")
                         .WithMany("Employees")
-                        .HasForeignKey("TitleId");
+                        .HasForeignKey("TitleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Department");
 
                     b.Navigation("Title");
+                });
+
+            modelBuilder.Entity("Model.Model.SalaryProfile", b =>
+                {
+                    b.HasOne("Model.Model.Employee", "Employee")
+                        .WithOne("SalaryProfile")
+                        .HasForeignKey("Model.Model.SalaryProfile", "EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("Model.Model.Title", b =>
@@ -517,6 +540,8 @@ namespace VMO_Back.Migrations
                     b.Navigation("AllocatedAssets");
 
                     b.Navigation("Contract");
+
+                    b.Navigation("SalaryProfile");
                 });
 
             modelBuilder.Entity("Model.Model.SalaryProfile", b =>

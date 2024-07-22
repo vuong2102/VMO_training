@@ -19,7 +19,7 @@ namespace VMO_Back.Controllers
     public class TitleController : ControllerBase
     {
         readonly ILogger<TitleController> _logger;
-        readonly ITitleRepository _titleRepository;
+        readonly ITitleRepository _contractRepository;
         readonly IDepartmentRepository _departmentRepository;
         readonly IMapper _mapper;
 
@@ -30,7 +30,7 @@ namespace VMO_Back.Controllers
         {
             _mapper = mapper;
             _logger = logger;
-            _titleRepository = TitleRepository;
+            _contractRepository = TitleRepository;
             _departmentRepository = DepartmentRepository;
         }
 
@@ -48,8 +48,8 @@ namespace VMO_Back.Controllers
                         PageSize = 15
                     }
                 };
-                var filter = model.CreateFilter(_titleRepository.GetQueryable());
-                var data = await _titleRepository.ExecuteWithTransactionAsync(filter);
+                var filter = model.CreateFilter(_contractRepository.GetQueryable());
+                var data = await _contractRepository.ExecuteWithTransactionAsync(filter);
 
                 var result = new ListTitleResult
                 {
@@ -82,7 +82,7 @@ namespace VMO_Back.Controllers
         {
             try
             {
-                var result = await _titleRepository.GetAsync(c => c.TitleId == id);
+                var result = await _contractRepository.GetAsync(c => c.TitleId == id);
                 if (result == null)
                 {
                     return new NotFoundRecordResult<TitleDto>("Không thể thêm phòng ban");
@@ -113,8 +113,8 @@ namespace VMO_Back.Controllers
                     DepartmentId = id,
                     Status = ActiveStatus.Active
                 };
-                var filter = model.CreateFilter(_titleRepository.GetQueryable());
-                var data = await _titleRepository.ExecuteWithTransactionAsync(filter);
+                var filter = model.CreateFilter(_contractRepository.GetQueryable());
+                var data = await _contractRepository.ExecuteWithTransactionAsync(filter);
 
                 var result = new ListTitleDetailResult
                 {
@@ -136,7 +136,7 @@ namespace VMO_Back.Controllers
         {
             try
             {
-                var data = await _titleRepository.GetTitleCodeMax();
+                var data = await _contractRepository.GetTitleCodeMax();
                 Regex regex = new Regex(@"(CD)(0*)(\d+)");
                 Match match = regex.Match(data);
                 string result = "";
@@ -173,7 +173,7 @@ namespace VMO_Back.Controllers
             {
 
                 var Title = _mapper.Map<Title>(dto);
-                var result = await _titleRepository.AddEntityAsync(Title);
+                var result = await _contractRepository.AddEntityAsync(Title);
                 if (!result)
                 {
                     return new NotFoundRecordResult<TitleAddDto>("Không thể thêm phòng ban");
@@ -193,12 +193,12 @@ namespace VMO_Back.Controllers
         {
             try
             {
-                _titleRepository.BeginTransaction();
-                var existEntity = await _titleRepository.GetAsync(c => c.TitleId == model.TitleId);
+                _contractRepository.BeginTransaction();
+                var existEntity = await _contractRepository.GetAsync(c => c.TitleId == model.TitleId);
                 var Title = _mapper.Map(model, existEntity);
 
-                await _titleRepository.UpdateEntityAsync(Title, false);
-                var updateResult = await _titleRepository.CommitTransactionAsync();
+                await _contractRepository.UpdateEntityAsync(Title, false);
+                var updateResult = await _contractRepository.CommitTransactionAsync();
                 if (!updateResult)
                 {
                     return new NotFoundRecordResult<bool?>("Không thể cập nhật phòng ban");
@@ -218,7 +218,7 @@ namespace VMO_Back.Controllers
         {
             try
             {
-                var result = await _titleRepository.DeleteAsync(id);
+                var result = await _contractRepository.DeleteAsync(id);
                 if (!result)
                 {
                     return new NotFoundRecordResult<bool?>("Không thể xóa phòng ban");
