@@ -34,15 +34,24 @@
   justify-content: space-around;
   display: flex;
 }
-.stt-column{
-  width: 100px;
-}
 .action-column{
   width: 120px;
 }
 .layout{
   display: flex;
   justify-content: space-between;
+}
+.btn-add {
+  margin-left: 10px;
+  background: #3ca70e;
+  border-color: #3ca70e;
+}
+.btn-add:hover {
+  background: #42b611;
+  border-color: #42b611;
+}
+.btn-export {
+  margin-left: 10px;
 }
 .custom-input-group{
   justify-content: center;

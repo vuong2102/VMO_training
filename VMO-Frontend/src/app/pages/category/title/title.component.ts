@@ -120,7 +120,7 @@ export class TitleComponent implements OnInit {
           true,
           NzAlertType.Success
         );
-
+        this.getAllTitle();
       } else {
         this.appComponent.showSuccessAlert(
           'Thêm dữ liệu không thành công',

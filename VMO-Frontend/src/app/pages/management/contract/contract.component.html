@@ -1,9 +1,13 @@
-<div class="title">
-  <p>Quản lý hợp đồng</p>
-</div>
+<div>
+  <div class="title">
+    <p>Quản lý hợp đồng</p>
+  </div>
 
-<div class="layout" style="margin-bottom: 20px">
-  <div style="width: 20%; height: 40px" class="custom-input-group">
+  <div style="width: 35%; height: 40px" class="custom-input-group">
+    <button nz-button nzType="primary" class="btn-add" (click)="openForm()">
+      Thêm mới
+    </button>
+    <button nz-button nzType="primary" class="btn-export">Xuất Excel</button>
     <nz-input-group
       nzSearch
       [nzAddOnAfter]="suffixIconButton"
@@ -18,62 +22,61 @@
     </ng-template>
   </div>
 
-  <button class="btn btn-success mb-10" (click)="formContract()">
-    Thêm mới
-  </button>
+  <div style="margin-top: 10px">
+    <nz-table #fixedTable [nzData]="listContract" nzTableLayout="fixed"
+    [nzScroll]="{ x: '100%', y: '450px' }">
+      <thead>
+        <tr>
+          <th nzLeft class="text-center align-middle" nzWidth="60px">STT</th>
+          <th nzLeft class="text-center align-middle" nzWidth="150px">Mã nhân viên</th>
+          <th nzLeft class="text-center align-middle" nzWidth="160px">Họ tên</th>
+          <th class="text-center align-middle" nzWidth="150px">Chức danh</th>
+          <th class="text-center align-middle" nzWidth="150px">Phòng ban</th>
+          <th class="text-center align-middle" nzWidth="150px">Loại hợp đồng</th>
+          <th class="text-center align-middle" nzWidth="150px">Mã hợp đồng</th>
+          <th class="text-center align-middle" nzWidth="200px">Ngày bắt đầu hợp đồng</th>
+          <th class="text-center align-middle" nzWidth="200px">Ngày kết thúc hợp đồng</th>
+          <th class="text-center align-middle" nzWidth="150px">Trạng thái ký</th>
+          <th class="text-center align-middle" nzWidth="150px">Ngày tạo</th>
+          <th class="text-center align-middle" nzWidth="200px">Trạng thái hợp đồng</th>
+          <th nzRight class="text-center align-middle action-column" nzWidth="110px">Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of listContract; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ data.name }}</td>
+          <td>{{ data.titleCode }}</td>
+          <td>{{ data.department.name }}</td>
+          <td>{{ data.department.departmentCode }}</td>
+          <td *ngIf="data.status == 0" style="color: #faad14; font-weight: 500">
+            Không hiệu lực
+          </td>
+          <td *ngIf="data.status == 1" style="color: #12d416">Hiệu lực</td>
+          <td>
+            <div class="button-title">
+              <span
+                nz-icon
+                nzType="edit"
+                nzTheme="outline"
+                class="action-button update-button"
+                nz-tooltip
+                nzTooltipTitle="Sửa"
+                (click)="formContract()"
+              ></span>
+              <span
+                nz-icon
+                nzType="delete"
+                nzTheme="outline"
+                class="action-button delete-button"
+                nz-tooltip
+                nzTooltipTitle="Xóa"
+                (click)="deleteContract(data)"
+              ></span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
 </div>
-
-<nz-table #nzTable [nzData]="listContract" nzTableLayout="fixed">
-  <thead>
-    <tr>
-      <th class="text-center align-middle stt-column">STT</th>
-      <th class="text-center align-middle">Mã nhân viên</th>
-      <th class="text-center align-middle">Họ tên</th>
-      <th class="text-center align-middle">Chức danh</th>
-      <th class="text-center align-middle">Phòng ban</th>
-      <th class="text-center align-middle">Loại hợp đồng</th>
-      <th class="text-center align-middle">Mã hợp đồng</th>
-      <th class="text-center align-middle">Ngày bắt đầu hợp đồng</th>
-      <th class="text-center align-middle">Ngày kết thúc hợp đồng</th>
-      <th class="text-center align-middle">Trạng thái ký</th>
-      <th class="text-center align-middle">Ngày tạo</th>
-      <th class="text-center align-middle">Trạng thái hợp đồng</th>
-      <th class="text-center align-middle action-column">Thao tác</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let data of listContract; let i = index">
-      <td>{{ i + 1 }}</td>
-      <td>{{ data.name }}</td>
-      <td>{{ data.titleCode }}</td>
-      <td>{{ data.department.name }}</td>
-      <td>{{ data.department.departmentCode }}</td>
-      <td *ngIf="data.status == 0" style="color: #faad14; font-weight: 500">
-        Không hiệu lực
-      </td>
-      <td *ngIf="data.status == 1" style="color: #12d416">Hiệu lực</td>
-      <td>
-        <div class="button-title">
-          <span
-            nz-icon
-            nzType="edit"
-            nzTheme="outline"
-            class="action-button update-button"
-            nz-tooltip
-            nzTooltipTitle="Sửa"
-            (click)="formContract()"
-          ></span>
-          <span
-            nz-icon
-            nzType="delete"
-            nzTheme="outline"
-            class="action-button delete-button"
-            nz-tooltip
-            nzTooltipTitle="Xóa"
-            (click)="deleteContract(data)"
-          ></span>
-        </div>
-      </td>
-    </tr>
-  </tbody>
-</nz-table>

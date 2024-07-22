@@ -10,12 +10,33 @@ export interface SalaryProfileDto {
   bonus: number;
   deduction: number;
   netSalary: number;
+  grossSalary: number;
   salaryRank: string;
   salaryLevel: string;
   createDate: Date;
-  creatorId: string;
-  updateDate: Date;
-  updaterId: string;
+  creatorId?: string;
+  updateDate?: Date;
+  updaterId?: string;
+  status: ActiveStatus;
+
+  contractId?: string;
+  employeeId: string;
+  benefits?: Benefit[];
+  allowances?: Allowance[];
+}
+
+export interface AddSalaryProfileDto {
+  basicSalary: number;
+  bonus: number;
+  deduction: number;
+  netSalary: number;
+  grossSalary: number;
+  salaryRank: string;
+  salaryLevel: string;
+  createDate: Date;
+  creatorId?: string;
+  updateDate?: Date;
+  updaterId?: string;
   status: ActiveStatus;
 
   contractId?: string;

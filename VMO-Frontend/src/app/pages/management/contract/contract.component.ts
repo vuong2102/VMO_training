@@ -6,10 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./contract.component.css'],
 })
 export class ContractComponent {
+openForm() {
+throw new Error('Method not implemented.');
+}
   listContract: any;
 
   deleteContract(_t53: any) {
-    
+
   }
 
 

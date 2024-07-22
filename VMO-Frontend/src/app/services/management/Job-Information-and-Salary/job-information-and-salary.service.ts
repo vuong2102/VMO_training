@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AddSalaryProfileDto } from 'src/app/model/Dto/SalaryProfileDto';
 import { SalaryProfile } from 'src/app/model/SalaryProfile';
 import { ExcuteResult } from 'src/share/model/ExcuteResult';
 
@@ -19,11 +20,11 @@ export class JobInformationAndSalaryService {
     return this.httpClient.get<ExcuteResult>(`${this.apiUrl}/all`);
   }
 
-  addNewSalaryProfile(salaryProfile: SalaryProfile): Observable<ExcuteResult> {
+  addNewSalaryProfile(salaryProfile: AddSalaryProfileDto): Observable<ExcuteResult> {
     return this.httpClient.post<ExcuteResult>(`${this.apiUrl}/add`, salaryProfile);
   }
 
-  deleteFood(salaryProfile: SalaryProfile): Observable<ExcuteResult>{
+  deleteSalaryProfile(salaryProfile: SalaryProfile): Observable<ExcuteResult>{
     return this.httpClient.delete<ExcuteResult>(`${this.apiUrl}/delete?id=${salaryProfile.salaryProfileId}`);
   }
 

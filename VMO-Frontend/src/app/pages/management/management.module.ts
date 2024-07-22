@@ -10,7 +10,7 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { IconsProviderModule } from 'src/app/icons-provider.module';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzInputGroupComponent, NzInputModule } from 'ng-zorro-antd/input';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzSelectModule } from 'ng-zorro-antd/select';
@@ -19,15 +19,19 @@ import { JobInformationAndSalaryComponent } from './job-information-and-salary/j
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { BrowserModule } from '@angular/platform-browser';
-import { VndCurrencyPipe } from 'src/app/model/VndCurrencyPipe';
-
+import { VndCurrencyPipe } from 'src/helper/VndCurrencyPipe';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
+import { NzListModule } from 'ng-zorro-antd/list';
 
 @NgModule({
   declarations: [
     ManagementComponent,
     ContractComponent,
     JobInformationAndSalaryComponent,
-    VndCurrencyPipe
+    VndCurrencyPipe,
   ],
   imports: [
     CommonModule,
@@ -44,11 +48,17 @@ import { VndCurrencyPipe } from 'src/app/model/VndCurrencyPipe';
     ReactiveFormsModule,
     NzSelectModule,
     NzInputModule,
+    NzInputNumberModule,
+    NzSpaceModule,
+    NzPaginationModule,
     IconsProviderModule,
     NzGridModule,
     NzStepsModule,
+    NzAvatarModule,
+    NzListModule,
     BrowserModule,
     FormsModule,
+
   ]
 })
 export class ManagementModule { }

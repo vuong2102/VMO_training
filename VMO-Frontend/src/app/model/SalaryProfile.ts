@@ -10,12 +10,13 @@ export interface SalaryProfile {
   bonus: number;
   deduction: number;
   netSalary: number;
+  grossSalary: number;
   salaryRank: string;
   salaryLevel: string;
   createDate: Date;
-  creatorId: string;
-  updateDate: Date;
-  updaterId: string;
+  creatorId?: string;
+  updateDate?: Date;
+  updaterId?: string;
   status: ActiveStatus;
 
   contract?: Contract;
