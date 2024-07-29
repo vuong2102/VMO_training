@@ -23,37 +23,104 @@
   </div>
 
   <div style="margin-top: 10px">
-    <nz-table #fixedTable [nzData]="listContract" nzTableLayout="fixed"
-    [nzScroll]="{ x: '100%', y: '450px' }">
+    <nz-table
+      #fixedTable
+      [nzData]="listContract"
+      nzTableLayout="fixed"
+      *ngIf="listContract.length > 0"
+      [nzScroll]="{ x: '100%', y: '450px' }"
+    >
       <thead>
         <tr>
           <th nzLeft class="text-center align-middle" nzWidth="60px">STT</th>
-          <th nzLeft class="text-center align-middle" nzWidth="150px">Mã nhân viên</th>
-          <th nzLeft class="text-center align-middle" nzWidth="160px">Họ tên</th>
+          <th nzLeft class="text-center align-middle" nzWidth="120px">
+            Mã nhân viên
+          </th>
+          <th nzLeft class="text-center align-middle" nzWidth="160px">
+            Họ tên
+          </th>
           <th class="text-center align-middle" nzWidth="150px">Chức danh</th>
           <th class="text-center align-middle" nzWidth="150px">Phòng ban</th>
-          <th class="text-center align-middle" nzWidth="150px">Loại hợp đồng</th>
+          <th class="text-center align-middle" nzWidth="150px">
+            Loại hợp đồng
+          </th>
           <th class="text-center align-middle" nzWidth="150px">Mã hợp đồng</th>
-          <th class="text-center align-middle" nzWidth="200px">Ngày bắt đầu hợp đồng</th>
-          <th class="text-center align-middle" nzWidth="200px">Ngày kết thúc hợp đồng</th>
-          <th class="text-center align-middle" nzWidth="150px">Trạng thái ký</th>
-          <th class="text-center align-middle" nzWidth="150px">Ngày tạo</th>
-          <th class="text-center align-middle" nzWidth="200px">Trạng thái hợp đồng</th>
-          <th nzRight class="text-center align-middle action-column" nzWidth="110px">Thao tác</th>
+          <th class="text-center align-middle" nzWidth="150px">
+            Ngày bắt đầu HĐ
+          </th>
+          <th class="text-center align-middle" nzWidth="150px">
+            Ngày kết thúc HĐ
+          </th>
+          <th class="text-center align-middle" nzWidth="150px">
+            Trạng thái ký
+          </th>
+          <th class="text-center align-middle" nzWidth="150px">Ngày tạo HĐ</th>
+          <th class="text-center align-middle" nzWidth="150px">
+            Trạng thái HĐ
+          </th>
+          <th
+            nzRight
+            class="text-center align-middle action-column"
+            nzWidth="110px"
+          >
+            Thao tác
+          </th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of listContract; let i = index">
-          <td>{{ i + 1 }}</td>
-          <td>{{ data.name }}</td>
-          <td>{{ data.titleCode }}</td>
-          <td>{{ data.department.name }}</td>
-          <td>{{ data.department.departmentCode }}</td>
-          <td *ngIf="data.status == 0" style="color: #faad14; font-weight: 500">
+        <tr *ngFor="let data of fixedTable.nzData; let i = index">
+          <td nzLeft>{{ i + 1 }}</td>
+          <td nzLeft>{{ data.employee.code }}</td>
+          <td nzLeft>{{ data.employee.name }}</td>
+          <td>{{ data.employee.title.name }}</td>
+          <td>{{ data.employee.department.name }}</td>
+          <td class="text-center align-middle">{{ data.contractType.name }}</td>
+          <td class="text-center align-middle">{{ data.contractCode }}</td>
+          <td class="text-center align-middle">
+            {{ data.startDate | date : "dd-MM-yyyy" }}
+          </td>
+          <td class="text-center align-middle">
+            {{ data.endDate | date : "dd-MM-yyyy" }}
+          </td>
+          <td
+            class="text-center align-middle"
+            *ngIf="data.statusSign == 'NoSign'"
+            style="color: #c43131"
+          >
+            Chưa ký
+          </td>
+          <td
+            class="text-center align-middle"
+            *ngIf="data.statusSign == 'Signed'"
+            style="color: #12d416"
+          >
+            Đã ký
+          </td>
+          <td
+            class="text-center align-middle"
+            *ngIf="data.statusSign == 'WaitingSign'"
+            style="color: #faad14"
+          >
+            Chờ ký
+          </td>
+          <td class="text-center align-middle">
+            {{ data.createDate | date : "dd-MM-yyyy" }}
+          </td>
+          <td
+            class="text-center align-middle"
+            *ngIf="data.status == 'NoActive'"
+            style="color: #faad14; font-weight: 500"
+          >
             Không hiệu lực
           </td>
-          <td *ngIf="data.status == 1" style="color: #12d416">Hiệu lực</td>
-          <td>
+          <td
+            class="text-center align-middle"
+            *ngIf="data.status == 'Active'"
+            style="color: #12d416"
+          >
+            Hiệu lực
+          </td>
+          <td nzRight>
             <div class="button-title">
               <span
                 nz-icon
@@ -78,5 +145,518 @@
         </tr>
       </tbody>
     </nz-table>
+  </div>
+
+  <!-- add contract  -->
+  <div class="add-form" *ngIf="isAddFormVisible">
+    <div class="close-btn">
+      <button
+        type="button"
+        class="close-button"
+        (click)="hideForm()"
+        style="background-color: rgb(255, 255, 255); border: rgb(255, 255, 255)"
+      >
+        <span nz-icon nzType="close" nzTheme="outline"></span>
+      </button>
+    </div>
+    <p style="font-size: 19px; font-weight: 400">Thông tin hợp đồng</p>
+    <div class="add-table">
+      <div class="step-table">
+        <nz-steps
+          style="margin-bottom: 30px"
+          nzType="navigation"
+          nzSize="small"
+          [nzCurrent]="index"
+          (nzIndexChange)="onIndexChange($event)"
+        >
+          <nz-step nzTitle="Thông tin nhân sự"></nz-step>
+          <nz-step nzTitle="Thông tin hợp đồng"></nz-step>
+        </nz-steps>
+      </div>
+
+      <div class="add-form-content">
+        <!-- buoc 1 -->
+        <div *ngIf="index == 0" class="container">
+          <div style="width: 70%; display: flex; float: right">
+            <nz-input-group nzCompact>
+              <input
+                type="text"
+                nz-input
+                style="width: 60%"
+                placeholder="Tìm kiếm theo mã nhân viên"
+                [(ngModel)]="searchValue"
+              />
+              <button
+                nz-button
+                nzType="primary"
+                nzSearch
+                (click)="searchAddForm(searchValue)"
+              >
+                <span nz-icon nzType="search"></span>
+              </button>
+            </nz-input-group>
+          </div>
+
+          <div class="content">
+            <div class="employee-profile">
+              <p>Thông tin nhân sự</p>
+
+              <form
+                nz-form
+                [formGroup]="infoEmployeeForm"
+                style="margin-top: 20px"
+              >
+                <nz-row [nzGutter]="24">
+                  <nz-col [nzSpan]="11">
+                    <nz-form-item>
+                      <nz-form-label [nzSpan]="8" nzRequired
+                        >Nhân viên</nz-form-label
+                      >
+                      <nz-form-control [nzSpan]="16" nzRequired>
+                        <input
+                          nz-input
+                          ngModel="{{ employeeGetByCode.name }}"
+                          [ngModelOptions]="{ standalone: true }"
+                          value="{{ employeeGetByCode.name }}"
+                        />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </nz-col>
+                  <nz-col [nzSpan]="13">
+                    <nz-form-item>
+                      <nz-form-label [nzSpan]="9" nzRequired
+                        >Mã nhân viên</nz-form-label
+                      >
+                      <nz-form-control [nzSpan]="15" nzRequired>
+                        <input
+                          nz-input
+                          ngModel="{{ employeeGetByCode.code }}"
+                          [ngModelOptions]="{ standalone: true }"
+                          value="{{ employeeGetByCode.code }}"
+                        />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </nz-col>
+                </nz-row>
+
+                <nz-row [nzGutter]="24">
+                  <nz-col [nzSpan]="11">
+                    <nz-form-item>
+                      <nz-form-label [nzSpan]="8" nzRequired
+                        >Phòng ban</nz-form-label
+                      >
+                      <nz-form-control [nzSpan]="16" nzRequired>
+                        <input
+                          nz-input
+                          ngModel="{{ departmentGetByEmployeeCode.name }}"
+                          [ngModelOptions]="{ standalone: true }"
+                        />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </nz-col>
+                  <nz-col [nzSpan]="13">
+                    <nz-form-item>
+                      <nz-form-label [nzSpan]="9" nzRequired
+                        >Mã phòng ban</nz-form-label
+                      >
+                      <nz-form-control [nzSpan]="15" nzRequired>
+                        <input
+                          nz-input
+                          ngModel="{{
+                            departmentGetByEmployeeCode.departmentCode
+                          }}"
+                          [ngModelOptions]="{ standalone: true }"
+                          value=""
+                        />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </nz-col>
+                </nz-row>
+
+                <nz-row [nzGutter]="24">
+                  <nz-col [nzSpan]="11">
+                    <nz-form-item>
+                      <nz-form-label [nzSpan]="8" nzRequired
+                        >Chức danh</nz-form-label
+                      >
+                      <nz-form-control [nzSpan]="16" nzRequired>
+                        <input
+                          nz-input
+                          ngModel="{{ tilteGetByEmployeeCode.name }}"
+                          [ngModelOptions]="{ standalone: true }"
+                          value=""
+                        />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </nz-col>
+                  <nz-col [nzSpan]="13">
+                    <nz-form-item>
+                      <nz-form-label [nzSpan]="9" nzRequired
+                        >Mã chức danh</nz-form-label
+                      >
+                      <nz-form-control [nzSpan]="15" nzRequired>
+                        <input
+                          nz-input
+                          ngModel="{{ tilteGetByEmployeeCode.titleCode }}"
+                          [ngModelOptions]="{ standalone: true }"
+                          value=""
+                        />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </nz-col>
+                </nz-row>
+              </form>
+            </div>
+
+            <div class="salary-profile">
+              <p>Thông tin hồ sơ lương</p>
+              <form
+                nz-form
+                [formGroup]="infoEmployeeForm"
+                style="margin-top: 20px"
+              >
+                <nz-row [nzGutter]="24">
+                  <nz-col [nzSpan]="11">
+                    <nz-form-item>
+                      <nz-form-label [nzSpan]="8" nzRequired
+                        >Ngày tạo</nz-form-label
+                      >
+                      <nz-form-control [nzSpan]="16" nzRequired>
+                        <input
+                          nz-input
+                          ngModel="{{
+                            salaryProfileGetByEmployeeCode.createDate
+                          }}"
+                          [ngModelOptions]="{ standalone: true }"
+                          value="{{
+                            salaryProfileGetByEmployeeCode.createDate
+                          }}"
+                        />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </nz-col>
+                  <nz-col [nzSpan]="13">
+                    <nz-form-item>
+                      <nz-form-label [nzSpan]="9" nzRequired
+                        >Mã hồ sơ lương</nz-form-label
+                      >
+                      <nz-form-control [nzSpan]="15" nzRequired>
+                        <input
+                          nz-input
+                          ngModel="{{
+                            salaryProfileGetByEmployeeCode.salaryProfileCode
+                          }}"
+                          [ngModelOptions]="{ standalone: true }"
+                          value="{{
+                            salaryProfileGetByEmployeeCode.salaryProfileCode
+                          }}"
+                        />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </nz-col>
+                </nz-row>
+
+                <nz-row [nzGutter]="24">
+                  <nz-col [nzSpan]="11">
+                    <nz-form-item>
+                      <nz-form-label [nzSpan]="8" nzRequired
+                        >Thưởng</nz-form-label
+                      >
+                      <nz-form-control [nzSpan]="16" nzRequired>
+                        <input
+                          nz-input
+                          ngModel="{{ salaryProfileGetByEmployeeCode.bonus }}"
+                          [ngModelOptions]="{ standalone: true }"
+                        />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </nz-col>
+                  <nz-col [nzSpan]="13">
+                    <nz-form-item>
+                      <nz-form-label [nzSpan]="9" nzRequired
+                        >Giảm trừ</nz-form-label
+                      >
+                      <nz-form-control [nzSpan]="15" nzRequired>
+                        <input
+                          nz-input
+                          ngModel="{{
+                            salaryProfileGetByEmployeeCode.deduction
+                          }}"
+                          [ngModelOptions]="{ standalone: true }"
+                          value=""
+                        />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </nz-col>
+                </nz-row>
+
+                <nz-row [nzGutter]="24">
+                  <nz-col [nzSpan]="11">
+                    <nz-form-item>
+                      <nz-form-label [nzSpan]="8" nzRequired
+                        >Lương cứng</nz-form-label
+                      >
+                      <nz-form-control [nzSpan]="16" nzRequired>
+                        <input
+                          nz-input
+                          ngModel="{{
+                            salaryProfileGetByEmployeeCode.netSalary
+                          }}"
+                          [ngModelOptions]="{ standalone: true }"
+                          value=""
+                        />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </nz-col>
+                  <nz-col [nzSpan]="13">
+                    <nz-form-item>
+                      <nz-form-label [nzSpan]="9" nzRequired
+                        >Rank lương</nz-form-label
+                      >
+                      <nz-form-control [nzSpan]="15" nzRequired>
+                        <input
+                          nz-input
+                          ngModel="{{
+                            salaryProfileGetByEmployeeCode.salaryRank
+                          }}"
+                          [ngModelOptions]="{ standalone: true }"
+                          value=""
+                        />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </nz-col>
+                </nz-row>
+
+                <nz-row [nzGutter]="24">
+                  <nz-col [nzSpan]="11">
+                    <nz-form-item>
+                      <nz-form-label [nzSpan]="8" nzRequired
+                        >Ngày tạo</nz-form-label
+                      >
+                      <nz-form-control [nzSpan]="16" nzRequired>
+                        <input
+                          nz-input
+                          ngModel="{{
+                            salaryProfileGetByEmployeeCode.createDate
+                          }}"
+                          [ngModelOptions]="{ standalone: true }"
+                          value="{{
+                            salaryProfileGetByEmployeeCode.createDate
+                          }}"
+                        />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </nz-col>
+                  <nz-col [nzSpan]="13">
+                    <nz-form-item>
+                      <nz-form-label [nzSpan]="9" nzRequired
+                        >Lương cơ bản</nz-form-label
+                      >
+                      <nz-form-control [nzSpan]="15" nzRequired>
+                        <input
+                          nz-input
+                          ngModel="{{
+                            salaryProfileGetByEmployeeCode.basicSalary
+                          }}"
+                          [ngModelOptions]="{ standalone: true }"
+                          value="{{
+                            salaryProfileGetByEmployeeCode.basicSalary
+                          }}"
+                        />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </nz-col>
+                </nz-row>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- buoc 2 -->
+        <div *ngIf="index == 1">
+          <div *ngIf="salaryProfileGetByEmployeeCode.contractId != null || contractAddVisible == true">
+            <div class="info-contract-add">
+              <p>Hợp đồng nhân sự</p>
+              <form
+                nz-form
+                [formGroup]="infoEmployeeForm"
+                style="margin-top: 20px"
+              >
+                <nz-row [nzGutter]="24">
+                  <nz-col [nzSpan]="11">
+                    <nz-form-item>
+                      <nz-form-label [nzSpan]="8" nzRequired
+                        >Nhân viên</nz-form-label
+                      >
+                      <nz-form-control [nzSpan]="16" nzRequired>
+                        <input
+                          nz-input
+                          ngModel="{{
+                            employeeGetByCode.name
+                          }}"
+                          [ngModelOptions]="{ standalone: true }"
+                          value="{{
+                            employeeGetByCode.name
+                          }}"
+                        />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </nz-col>
+                  <nz-col [nzSpan]="13">
+                    <nz-form-item>
+                      <nz-form-label [nzSpan]="9" nzRequired
+                        >Mã nhân viên</nz-form-label
+                      >
+                      <nz-form-control [nzSpan]="15" nzRequired>
+                        <input
+                          nz-input
+                          ngModel="{{
+                            employeeGetByCode.code
+                          }}"
+                          [ngModelOptions]="{ standalone: true }"
+                          value="{{
+                            employeeGetByCode.code
+                          }}"
+                        />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </nz-col>
+                </nz-row>
+
+                <nz-row [nzGutter]="24">
+                  <nz-col [nzSpan]="11">
+                    <nz-form-item>
+                      <nz-form-label [nzSpan]="8" nzRequired
+                        >Mã Hợp đồng</nz-form-label
+                      >
+                      <nz-form-control [nzSpan]="16" nzRequired>
+                        <input
+                          nz-input
+                          ngModel="{{ contractAdd.contractCode }}"
+                          [ngModelOptions]="{ standalone: true }"
+                        />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </nz-col>
+                  <nz-col [nzSpan]="13">
+                    <nz-form-item>
+                      <nz-form-label [nzSpan]="9" nzRequired
+                        >Ngày tạo hợp đồng</nz-form-label
+                      >
+                      <nz-form-control [nzSpan]="15" nzRequired>
+                        <nz-date-picker ngModel="{{contractAdd.createDate}}" style="width: 100%;"
+                        [ngModelOptions]="{standalone: true}"></nz-date-picker>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </nz-col>
+                </nz-row>
+
+                <nz-row [nzGutter]="24">
+                  <nz-col [nzSpan]="11">
+                    <nz-form-item>
+                      <nz-form-label [nzSpan]="8" nzRequired
+                        >Ngày bắt đầu HĐ</nz-form-label
+                      >
+                      <nz-form-control [nzSpan]="16" nzRequired>
+                        <nz-date-picker ngModel="{{contractAdd.startDate}}" style="width: 100%;"
+                        [ngModelOptions]="{standalone: true}"></nz-date-picker>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </nz-col>
+                  <nz-col [nzSpan]="13">
+                    <nz-form-item>
+                      <nz-form-label [nzSpan]="9" nzRequired
+                        >Ngày kết thúc HĐ</nz-form-label
+                      >
+                      <nz-form-control [nzSpan]="15" nzRequired>
+                        <nz-date-picker ngModel="{{contractAdd.endDate}}" style="width: 100%;"
+                        [ngModelOptions]="{standalone: true}"></nz-date-picker>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </nz-col>
+                </nz-row>
+
+                <nz-row [nzGutter]="24">
+                  <nz-col [nzSpan]="11">
+                    <nz-form-item>
+                      <nz-form-label [nzSpan]="8" nzRequired
+                        >Loại hợp đồng</nz-form-label
+                      >
+                      <nz-form-control [nzSpan]="16" nzRequired>
+                        <input
+                          nz-input
+                          ngModel="{{
+                            contractAdd.contractTypeId
+                          }}"
+                          [ngModelOptions]="{ standalone: true }"
+                          value="{{
+                            contractAdd.contractTypeId
+                          }}"
+                        />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </nz-col>
+                  <nz-col [nzSpan]="13">
+                    <nz-form-item>
+                      <nz-form-label [nzSpan]="9" nzRequired
+                        >Trạng thái HĐ</nz-form-label
+                      >
+                      <nz-form-control [nzSpan]="15" nzRequired>
+                        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Trạng thái hợp đồng" [(ngModel)]="activeStatus">
+                          <nz-option *ngFor="let status of activeStatus" nzLabel="{{status}}" nzValue="{{status}}"></nz-option>
+                        </nz-select>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </nz-col>
+                </nz-row>
+              </form>
+            </div>
+
+            <div class="info-contract-sign">
+              <p>Trạng thái ký</p>
+              <form
+                nz-form
+                [formGroup]="infoEmployeeForm"
+                style="margin-top: 20px"
+              >
+                <nz-row [nzGutter]="24">
+                  <nz-col [nzSpan]="11">
+                    <nz-form-item>
+                      <nz-form-label [nzSpan]="8" nzRequired
+                        >Trạng thái ký</nz-form-label
+                      >
+                      <nz-form-control [nzSpan]="16" nzRequired>
+                        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Trạng thái hợp đồng" [(ngModel)]="statusSignes">
+                          <nz-option *ngFor="let status of statusSignes" nzLabel="{{status}}" nzValue="{{status}}"></nz-option>
+                        </nz-select>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </nz-col>
+                  <nz-col [nzSpan]="13">
+                    <nz-form-item>
+                      <nz-form-label [nzSpan]="9" nzRequired
+                        >Ngày ký</nz-form-label
+                      >
+                      <nz-form-control [nzSpan]="16" nzRequired>
+                        <nz-date-picker ngModel="{{contractAdd.statusSign}}" style="width: 100%;"
+                        [ngModelOptions]="{standalone: true}"></nz-date-picker>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </nz-col>
+                </nz-row>
+
+              </form>
+            </div>
+          </div>
+          <div *ngIf="contractAddVisible == false">
+            <div style="" *ngIf="salaryProfileGetByEmployeeCode.contractId == null">
+              <p>Nhân viên chưa có hợp đồng</p>
+              <button nz-button nzType="primary" (click)="createContract()">Tạo hợp đồng</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
   </div>
 </div>

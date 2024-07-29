@@ -8,6 +8,7 @@ import { SalaryProfile } from "../SalaryProfile";
 export function mapToSalaryProfile(dto: SalaryProfileDto, contract?: Contract, employee?: Employee): SalaryProfile {
   return {
     salaryProfileId: dto.salaryProfileId,
+    salaryProfileCode: dto.salaryProfileCode,
     basicSalary: dto.basicSalary,
     bonus: dto.bonus,
     deduction: dto.deduction,
@@ -19,6 +20,8 @@ export function mapToSalaryProfile(dto: SalaryProfileDto, contract?: Contract, e
     creatorId: dto.creatorId,
     updateDate: dto.updateDate,
     updaterId: dto.updaterId,
+    signDate: dto.signDate,
+    statusSign: dto.statusSign,
     status: dto.status,
     contract: contract,
     employee: employee!,
@@ -30,6 +33,7 @@ export function mapToSalaryProfile(dto: SalaryProfileDto, contract?: Contract, e
 export function mapToSalaryProfileDto(profile: SalaryProfile): SalaryProfileDto {
   return {
     salaryProfileId: profile.salaryProfileId,
+    salaryProfileCode: profile.salaryProfileCode,
     basicSalary: profile.basicSalary,
     bonus: profile.bonus,
     deduction: profile.deduction,
@@ -41,8 +45,10 @@ export function mapToSalaryProfileDto(profile: SalaryProfile): SalaryProfileDto 
     creatorId: profile.creatorId,
     updateDate: profile.updateDate,
     updaterId: profile.updaterId,
+    signDate: profile.signDate,
+    statusSign: profile.statusSign,
     status: profile.status,
-    contractId: profile.contract ? profile.contract.id : undefined,
+    contractId: profile.contract ? profile.contract.contractId : undefined,
     employeeId: profile.employee.employeeId,
     benefits: profile.benefits,
     allowances: profile.allowances
@@ -63,7 +69,7 @@ export function mapToAddSalaryProfileDto(profile: SalaryProfile): AddSalaryProfi
     updateDate: profile.updateDate,
     updaterId: profile.updaterId,
     status: profile.status,
-    contractId: profile.contract ? profile.contract.id : undefined,
+    contractId: profile.contract ? profile.contract.contractId : undefined,
     employeeId: profile.employee.employeeId,
     benefits: profile.benefits,
     allowances: profile.allowances

@@ -189,15 +189,15 @@
       </div>
     </nz-content>
   </nz-layout>
+
+  <!-- tạo thông báo chung -->
+  <nz-alert
+    class="notification-alert"
+    [nzType]="alertType"
+    *ngIf="isSuccessAlertVisible"
+    [nzMessage]="alertMessage"
+    [nzDescription]="alertDescription"
+    nzShowIcon
+    [@slideInOut]="'in'"
+  ></nz-alert>
 </nz-layout>
-
-
-<!-- tạo thông báo chung -->
-<nz-alert class="notification-alert"
-  [nzType]="alertType"
-  *ngIf="isSuccessAlertVisible"
-  [nzMessage]="alertMessage"
-  [nzDescription]="alertDescription"
-  nzShowIcon
-  [@slideInOut]="'in'"
-></nz-alert>

@@ -2,10 +2,12 @@ import { ActiveStatus } from 'src/share/model/ActiveStatus';
 import { Benefit } from '../Benefit';
 import { Allowance } from '../Allowance';
 import { Employee } from '../Employee';
+import { StatusSign } from 'src/share/model/StatusSign';
 
 
 export interface SalaryProfileDto {
   salaryProfileId: string;
+  salaryProfileCode: string;
   basicSalary: number;
   bonus: number;
   deduction: number;
@@ -17,6 +19,8 @@ export interface SalaryProfileDto {
   creatorId?: string;
   updateDate?: Date;
   updaterId?: string;
+  signDate: Date;
+  statusSign: StatusSign;
   status: ActiveStatus;
 
   contractId?: string;

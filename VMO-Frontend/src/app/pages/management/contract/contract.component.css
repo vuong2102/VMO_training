@@ -103,3 +103,83 @@
   justify-content: center;
   font-size: 25px;
 }
+.add-form {
+  width: 60%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  animation: slide-in 0.3s ease-in-out;
+  overflow: hidden;
+  border-left: 2px solid #d3d3d3;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.add-table {
+  width: 95%;
+  height: 80%;
+}
+.step-table{
+  justify-content: center;
+  width: 100%;
+  display: flex;
+}
+nz-steps {
+  margin-bottom: 60px;
+  box-shadow: rgb(232, 232, 232) 0px -1px 0px 0 inset;
+}
+.employee-profile{
+  width: 100%;
+  border: 1px solid #1890ff;
+  height: fit-content;
+  margin: 10px 0px;
+  padding: 10px;
+}
+.salary-profile{
+  width: 100%;
+  height: 300px;
+  border: 1px solid #1890ff;
+  height: fit-content;
+  margin: 15px 0px;
+  padding: 10px;
+
+}
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.info-contract-add{
+  width: 100%;
+  border: 1px solid #1890ff;
+  height: fit-content;
+  margin: 20px 0px 15px 0px;
+  padding: 10px;
+}
+.info-contract-sign{
+  width: 100%;
+  border: 1px solid #1890ff;
+  height: fit-content;
+  margin: 15px 0px;
+  padding: 10px;
+}

@@ -28,5 +28,7 @@ export class JobInformationAndSalaryService {
     return this.httpClient.delete<ExcuteResult>(`${this.apiUrl}/delete?id=${salaryProfile.salaryProfileId}`);
   }
 
-
+  getSalaryProfileByEmployeeCode(code: string): Observable<ExcuteResult>{
+    return this.httpClient.get<ExcuteResult>(`${this.apiUrl}/detail-code?employeeId=${code}`);
+  }
 }

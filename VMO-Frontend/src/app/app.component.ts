@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { NzAlertType } from 'src/share/model/NzAlertType';
+import { Subscription } from 'rxjs';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +30,7 @@ import { NzAlertType } from 'src/share/model/NzAlertType';
     ])
   ]
 })
-export class AppComponent {
+export class AppComponent{
   isCollapsed = false;
   isDanhMucOpen = false;
   isSuccessAlertVisible = false;
@@ -37,12 +39,14 @@ export class AppComponent {
   NzAlertType = NzAlertType;
   alertType: NzAlertType = NzAlertType.Success;
 
-  showSuccessAlert(message: string, showAlert: boolean, alertType: NzAlertType) {
+  showSuccessAlert(message: string, showAlert: boolean, alertType: NzAlertType, alertMessage: string ) {
     this.alertDescription = message;
     this.isSuccessAlertVisible = showAlert;
     this.alertType = alertType;
+    this.alertMessage = alertMessage;
     setTimeout(() => {
       this.isSuccessAlertVisible = false;
     }, 5000);
   }
+
 }

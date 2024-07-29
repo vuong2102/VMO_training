@@ -14,7 +14,6 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { CategoryModule } from './pages/category/category.module';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
-import { ManagementComponent } from './pages/management/management.component';
 import { ManagementModule } from './pages/management/management.module';
 
 registerLocaleData(en);
@@ -34,7 +33,7 @@ registerLocaleData(en);
     NzMenuModule,
     NzAlertModule,
     CategoryModule,
-    ManagementModule
+    ManagementModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US }

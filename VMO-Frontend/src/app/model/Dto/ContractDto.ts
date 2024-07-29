@@ -1,10 +1,7 @@
 import { ActiveStatus } from "src/share/model/ActiveStatus";
 import { StatusSign } from "src/share/model/StatusSign";
-import { Employee } from "./Employee";
-import { SalaryProfile } from "./SalaryProfile";
-import { ContractType } from "./ContractType";
 
-export interface Contract {
+export interface ContractDto {
   contractId: string;
   contractCode: string;
   startDate: Date;
@@ -16,8 +13,8 @@ export interface Contract {
   updaterId?: string;
   status: ActiveStatus;
 
-  employee: Employee;
-  employeeApproved: Employee;
-  contractType: ContractType;
-  salaryProfile?: SalaryProfile;
+  employeeId: string;
+  employeeApprovedId: string;
+  contractTypeId: string;
+  salaryProfileId: string;
 }

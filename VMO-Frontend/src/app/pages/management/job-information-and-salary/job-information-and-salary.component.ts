@@ -34,6 +34,7 @@ import { BenefitService } from 'src/app/services/category/benefit/benefit.servic
 import { AllowanceService } from 'src/app/services/category/allowance/allowance.service';
 import { Allowance } from 'src/app/model/Allowance';
 import { NzAlertType } from 'src/share/model/NzAlertType';
+import { ContractService } from 'src/app/services/management/contract-profile/contract.service';
 
 @Component({
   selector: 'app-job-information-and-salary',
@@ -72,6 +73,7 @@ export class JobInformationAndSalaryComponent implements OnInit {
   listOfData: SalaryProfile[] = [];
   listDepartment: Department[] = [];
   listSalaryProfile: SalaryProfile[] = [];
+  listSalaryProfileGet: SalaryProfile[] = [];
   listEmployee: Employee[] = [];
 
   AddSalaryProfile: SalaryProfile = {} as SalaryProfile;
@@ -90,6 +92,7 @@ export class JobInformationAndSalaryComponent implements OnInit {
     private employeeProfileService: EmployeeProfileService,
     private appComponent: AppComponent,
     private SalaryProfileService: JobInformationAndSalaryService,
+    private contractService: ContractService,
     private fb: FormBuilder,
     private vndCurrencyPipe: VndCurrencyPipe,
     private eRef: ElementRef,
@@ -149,13 +152,15 @@ export class JobInformationAndSalaryComponent implements OnInit {
         this.appComponent.showSuccessAlert(
           'Thêm dữ liệu thành công',
           true,
-          NzAlertType.Success
+          NzAlertType.Success,
+          'Success'
         );
       } else {
         this.appComponent.showSuccessAlert(
           'Thêm dữ liệu không thành công',
           true,
-          NzAlertType.Warning
+          NzAlertType.Warning,
+          'Warning'
         );
       }
     });
@@ -258,32 +263,39 @@ export class JobInformationAndSalaryComponent implements OnInit {
         }
       });
   }
+  listSalaryProfileDto: SalaryProfileDto[] = [];
+  employeeMap: Employee = {} as Employee;
 
-  getAllSalaryProfile() {
+  async getAllSalaryProfile() {
     this.listSalaryProfile = [];
-    this.SalaryProfileService.getAllSalaryProfileWithFilter().subscribe(
-      (res: any) => {
-        if (res.code == ResultCode.SuccessResult) {
-          res.result.data.forEach((element: SalaryProfileDto) => {
-            this.employeeProfileService
-              .getEmployeeById(element.employeeId)
-              .subscribe((res2: any) => {
-                if (res2.code == ResultCode.SuccessResult) {
-                  this.test = res2.result;
-                  this.salaryProfile = mapToSalaryProfile(
-                    element,
-                    undefined,
-                    this.test
-                  );
-                  this.listSalaryProfile.push(this.salaryProfile);
-                }
-              });
-          });
-        } else {
-          this.listSalaryProfile = [];
-        }
+    this.listSalaryProfileGet = [];
+    try {
+      const res: any = await this.SalaryProfileService.getAllSalaryProfileWithFilter().toPromise();
+      if (res.code == ResultCode.SuccessResult) {
+        this.listSalaryProfileDto = res.result.data;
+      } else {
+        this.listSalaryProfileDto = [];
       }
-    );
+    } catch (error) {
+      console.error('Error fetching contracts:', error);
+    }
+
+    this.listSalaryProfileDto.forEach(async (element: any) => {
+      const resEmployee: any = await this.employeeProfileService
+        .getEmployeeById(element.employeeId)
+        .toPromise();
+      if (resEmployee.code == ResultCode.SuccessResult) {
+        element.Employee = resEmployee.result.data;
+        this.employeeMap = resEmployee.result;
+        this.salaryProfile = mapToSalaryProfile(
+          element,
+          undefined,
+          this.employeeMap
+        );
+      }
+      this.listSalaryProfileGet.push(this.salaryProfile);
+    });
+    this.listSalaryProfile = this.listSalaryProfileGet;
   }
 
   getListDepartment() {
@@ -305,14 +317,16 @@ export class JobInformationAndSalaryComponent implements OnInit {
           this.appComponent.showSuccessAlert(
             'Xóa dữ liệu thành công',
             true,
-            NzAlertType.Success
+            NzAlertType.Success,
+            'Success'
           );
           this.getAllSalaryProfile();
         } else {
           this.appComponent.showSuccessAlert(
             'Xóa dữ liệu không thành công',
             true,
-            NzAlertType.Warning
+            NzAlertType.Warning,
+            'Warning'
           );
         }
       }
@@ -322,7 +336,8 @@ export class JobInformationAndSalaryComponent implements OnInit {
     this.appComponent.showSuccessAlert(
       'Bạn không có quyền thực hiện',
       true,
-      NzAlertType.Warning
+      NzAlertType.Warning,
+      'Warning'
     );
   }
   formTitle() {

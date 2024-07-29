@@ -23,6 +23,10 @@ export class EmployeeProfileService {
     return this.httpClient.get(`${this.apiUrl}/all-filter?departmentId=${departmentId}&titleId=${titleId}`);;
   }
 
+  getAllEmployeeByEmployeeCode(employeeCode: string) {
+    return this.httpClient.get(`${this.apiUrl}?employeeCode=${employeeCode}`);;
+  }
+
   async getAllTitleWithFilter(): Promise<Observable<ExcuteResult>>{
     return await this.httpClient.get<ExcuteResult>(`${this.apiUrl}/all`);
   }

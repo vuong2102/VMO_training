@@ -100,9 +100,10 @@ nz-content {
 }
 .notification-alert{
   position: fixed;
-  top: 10%;
+  top: 8%;
   right: 10px;
   width: 22%;
+  z-index: 1000;
 }
 @keyframes fadeIn {
   from {

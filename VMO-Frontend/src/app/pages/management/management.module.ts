@@ -25,7 +25,7 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzListModule } from 'ng-zorro-antd/list';
-
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 @NgModule({
   declarations: [
     ManagementComponent,
@@ -56,6 +56,7 @@ import { NzListModule } from 'ng-zorro-antd/list';
     NzStepsModule,
     NzAvatarModule,
     NzListModule,
+    NzDatePickerModule,
     BrowserModule,
     FormsModule,
 

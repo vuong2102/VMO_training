@@ -118,14 +118,16 @@ export class TitleComponent implements OnInit {
         this.appComponent.showSuccessAlert(
           'Thêm dữ liệu thành công',
           true,
-          NzAlertType.Success
+          NzAlertType.Success,
+          'Success'
         );
         this.getAllTitle();
       } else {
         this.appComponent.showSuccessAlert(
           'Thêm dữ liệu không thành công',
           true,
-          NzAlertType.Warning
+          NzAlertType.Warning,
+          'Warning'
         );
       }
     });
@@ -139,13 +141,15 @@ export class TitleComponent implements OnInit {
         this.appComponent.showSuccessAlert(
           'Xóa dữ liệu thành công',
           true,
-          NzAlertType.Success
+          NzAlertType.Success,
+          'Success'
         );
       } else {
         this.appComponent.showSuccessAlert(
           'Xóa dữ liệu không thành công',
           true,
-          NzAlertType.Warning
+          NzAlertType.Warning,
+          'Warning'
         );
       }
     });
