@@ -26,9 +26,14 @@ namespace Core.Extensions
             }
             return false;
         }
-        /*public static string GenerateCode(string data)
-        {
 
-        }*/
+        public static bool IsNumber(this int input)
+        {
+            if (input < 0)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }

@@ -8,6 +8,8 @@ namespace VMO_Back.Repository.Interface
     {
         IQueryable<Employee> GetQueryable();
         Task<List<Employee>> GetAllWithFilterAsync(EmployeeSearch model);
+        Task<List<Employee>> GetAllWithEmployeeCode(EmployeeSearch model);
+
 
     }
 }

@@ -34,4 +34,8 @@ export class ContractService {
   getContractType(id: string): Observable<ExcuteResult>{
     return this.httpClient.get<ExcuteResult>(`${this.apiUrl}/contractCode-max`);
   }
+
+  getContractOverViewIncDec(): Observable<ExcuteResult>{
+    return this.httpClient.get<ExcuteResult>(`${this.apiUrl}/overview-inc-dec`);
+  }
 }

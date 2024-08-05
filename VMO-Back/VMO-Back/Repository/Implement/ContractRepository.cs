@@ -31,5 +31,30 @@ namespace VMO_Back.Repository.Implement
                 throw;
             }
         }
+
+        public async Task<string> GetContractCodeMax()
+        {
+            try
+            {
+                BeginTransaction();
+                var highestTitleCode = Query
+                    .Where(t => t.ContractCode.StartsWith("HD"))
+                    .OrderByDescending(t => t.ContractCode)
+                    .Select(t => t.ContractCode)
+                    .FirstOrDefaultAsync();
+
+                if (highestTitleCode.Result == null)
+                {
+                    return "HD0001";
+                }
+                await CommitTransactionAsync();
+                return highestTitleCode.Result.ToString();
+            }
+            catch (Exception ex)
+            {
+                await RollbackTransactionAsync();
+                throw;
+            }
+        }
     }
 }

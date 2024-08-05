@@ -7,5 +7,6 @@ namespace VMO_Back.Repository.Interface
     {
         IQueryable<Contract> GetQueryable();
         Task<List<Contract>> GetAllWithFilterAsync();
+        Task<string> GetContractCodeMax();
     }
 }

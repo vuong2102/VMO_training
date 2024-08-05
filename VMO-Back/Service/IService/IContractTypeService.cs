@@ -1,6 +1,7 @@
 ﻿using Core.Extensions;
 using Model.DTO;
 using Model.Model;
+using Model.Utils;
 using Share.Domain;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace Service.IService
             public Page Page { get; set; }
 
             [DataMember(Order = 2)]
-            public string Id { get; set; }
+            public string ContractTypeId { get; set; }
 
             [DataMember(Order = 3)]
             public string Name { get; set; }
@@ -32,13 +33,13 @@ namespace Service.IService
             public int Term { get; set; }
 
             [DataMember(Order = 6)]
-            public int Status { get; set; }
+            public ActiveStatus Status { get; set; }
 
             public IQueryable<ContractType> CreateFilter(IQueryable<ContractType> filter)
             {
-                if (Id.IsNotNullOrEmpty())
+                if (ContractTypeId.IsNotNullOrEmpty())
                 {
-                    filter = filter.Where(c => c.ContractTypeId == Id);
+                    filter = filter.Where(c => c.ContractTypeId == ContractTypeId);
                 }
                 if (Name.IsNotNullOrEmpty())
                 {
@@ -48,11 +49,11 @@ namespace Service.IService
                 {
                     filter = filter.Where(c => c.ContractCode == ContractCode);
                 }
-                if (Term.IsNotNullOrEmpty())
+                if (Term == -1)
                 {
                     filter = filter.Where(c => c.Term == Term);
                 }
-                if (Status.IsNotNullOrEmpty())
+                if (Status != ActiveStatus.All)
                 {
                     filter = filter.Where(c => c.Status == Status);
                 }
@@ -68,6 +69,28 @@ namespace Service.IService
 
             [DataMember(Order = 2)]
             public int Total { get; set; }
+
+        }
+
+        [DataContract]
+        public class ListContractTypeOverviewResult
+        {
+            [DataMember(Order = 1)]
+            public List<ContractTypeOverview> Data { get; set; }
+
+            [DataMember(Order = 2)]
+            public int Total { get; set; }
+
+        }
+
+        [DataContract]
+        public class OverviewIncDec
+        {
+            [DataMember(Order = 1)]
+            public int Active { get; set; }
+
+            [DataMember(Order = 2)]
+            public int NoActive { get; set; }
 
         }
     }

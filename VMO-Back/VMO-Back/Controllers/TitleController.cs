@@ -46,7 +46,8 @@ namespace VMO_Back.Controllers
                     {
                         PageIndex = 0,
                         PageSize = 15
-                    }
+                    },
+                    Status = ActiveStatus.All
                 };
                 var filter = model.CreateFilter(_contractRepository.GetQueryable());
                 var data = await _contractRepository.ExecuteWithTransactionAsync(filter);

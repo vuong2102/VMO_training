@@ -10,6 +10,7 @@ namespace Model.Model
     public class SalaryProfile
     {
         public string SalaryProfileId { get; set; }
+        public string SalaryProfileCode { get; set; }
         public int BasicSalary { get; set; }
         public int Bonus { get; set; }
         public int Deduction { get; set; }

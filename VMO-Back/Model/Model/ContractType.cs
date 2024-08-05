@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Model.Utils;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Model
@@ -12,7 +13,7 @@ namespace Model.Model
         public string Name { get; set; }
         public string ContractCode { get; set; }
         public int Term { get; set; }
-        public int Status { get; set; }
+        public ActiveStatus Status { get; set; }
         public ICollection<Contract> Contracts { get; set; }
         
     }

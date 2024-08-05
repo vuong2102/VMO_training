@@ -84,3 +84,5 @@ D:\Code\Projects\VMO\VMO-Back\VMO-Back\obj\Debug\net7.0\VMO-Back.pdb
 D:\Code\Projects\VMO\VMO-Back\VMO-Back\obj\Debug\net7.0\VMO-Back.genruntimeconfig.cache
 D:\Code\Projects\VMO\VMO-Back\VMO-Back\obj\Debug\net7.0\ref\VMO-Back.dll
 D:\Code\Projects\VMO\VMO-Back\VMO-Back\obj\Debug\net7.0\VMO-Back.sourcelink.json
+D:\Code\Projects\VMO\VMO-Back\VMO-Back\bin\Debug\net7.0\FuzzySharp.dll
+D:\Code\Projects\VMO\VMO-Back\VMO-Back\obj\Debug\net7.0\VMO-Back.MvcApplicationPartsAssemblyInfo.cs

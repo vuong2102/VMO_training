@@ -116,6 +116,44 @@ namespace VMO_Back.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<ExcuteResult<ListEmployeeResult>> GetEmployeesByEmployeeCode(string employeeCode)
+        {
+            try
+            {
+                EmployeeSearch model = new EmployeeSearch
+                {
+                    Page = new Share.Domain.Page
+                    {
+                        PageIndex = 0,
+                        PageSize = 15
+                    },
+                    Code = employeeCode,
+                    Status = Model.Utils.ActiveStatus.All
+                };
+                var filter = model.CreateFilter(_employeeRepository.GetQueryable());
+                var data = await _employeeRepository.GetAllWithEmployeeCode(model);
+
+                foreach (var item in data)
+                {
+                    item.Title = await _contractRepository.GetAsync(c => c.TitleId == item.TitleId);
+                    item.Department = await _departmentRepository.GetAsync(c => c.DepartmentId == item.DepartmentId);
+                }
+
+                var result = new ListEmployeeResult
+                {
+                    Data = _mapper.Map<List<EmployeeDto>>(data),
+                    Total = data.Count,
+                };
+                return new ExcuteResult<ListEmployeeResult>(result, ResultCode.SuccessResult, null);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return new ExcuteResult<ListEmployeeResult>(null) { Code = ResultCode.ExceptionResult, ErrorMessage = ex.Message };
+            }
+        }
+
         [HttpPost]
         [Route("add")]
         public async Task<ExcuteResult<EmployeeAddDto>> AddEmployee(EmployeeAddDto dto)

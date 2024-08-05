@@ -5,6 +5,7 @@ using Model.DTO;
 using Model.Model;
 using Share;
 using System;
+using System.Text.RegularExpressions;
 using VMO_Back.Repository.Implement;
 using VMO_Back.Repository.Interface;
 using static Service.IService.IAllowanceService;
@@ -119,6 +120,59 @@ namespace VMO_Back.Controllers
             {
                 _logger.LogError(ex, ex.Message);
                 return new ExcuteResult<ListSalaryProfileResult>(null) { Code = ResultCode.ExceptionResult, ErrorMessage = ex.Message };
+            }
+        }
+
+        [HttpGet]
+        [Route("detail-code")]
+        public async Task<ExcuteResult<SalaryProfileDto>> GetSalaryProfileByIdAsync(string employeeId)
+        {
+            try
+            {
+                var result = await _salaryProfileRepository.GetAsync(c => c.EmployeeId == employeeId);
+                if (result == null)
+                {
+                    return new NotFoundRecordResult<SalaryProfileDto>("Không thể lấy chi tiết phòng ban");
+                }
+                var resultData = _mapper.Map<SalaryProfileDto>(result);
+                
+                SalaryProfileAllowanceSearch modelAllowance = new SalaryProfileAllowanceSearch
+                {
+                    SalaryProfileId = resultData.SalaryProfileId,
+                    Status = Model.Utils.ActiveStatus.All
+                };
+                var filterAllowance = modelAllowance.CreateFilter(_salaryProfileAllowanceRepository.GetQueryable());
+                var dataAllowanceList = await _salaryProfileAllowanceRepository.ExecuteWithTransactionAsync(filterAllowance);
+                var listAllowanceDto = new List<AllowanceDto>();
+                foreach (var itemAllowance in dataAllowanceList)
+                {
+                    var allowance = await _allowanceRepository.GetAsync(c => c.AllowanceId == itemAllowance.AllowanceId);
+                    listAllowanceDto.Add(_mapper.Map<AllowanceDto>(allowance));
+                }
+                resultData.Allowances = listAllowanceDto;
+
+                SalaryProfileBenefitSearch modelBenefit = new SalaryProfileBenefitSearch
+                {
+                    SalaryProfileId = result.SalaryProfileId,
+                    Status = Model.Utils.ActiveStatus.All
+                };
+                var filterBenefit = modelBenefit.CreateFilter(_salaryProfileBenefitRepository.GetQueryable());
+                var dataBenefit = await _salaryProfileBenefitRepository.ExecuteWithTransactionAsync(filterBenefit);
+                var listBenefitDto = new List<BenefitDto>();
+                foreach (var itemBenefit in dataBenefit)
+                {
+                    var benefit = await _benefitRepository.GetAsync(c => c.BenefitId == itemBenefit.BenefitId);
+                    var benefitMap = _mapper.Map<BenefitDto>(benefit);
+                    listBenefitDto.Add(benefitMap);
+                }
+                resultData.Benefits = listBenefitDto;
+
+                return new ExcuteResult<SalaryProfileDto>(resultData, ResultCode.SuccessResult, null);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return new ExcuteResult<SalaryProfileDto>(null) { Code = ResultCode.ExceptionResult, ErrorMessage = ex.Message };
             }
         }
 

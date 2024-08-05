@@ -1,0 +1,128 @@
+<div class="container">
+  <p>TỔNG QUAN NHÂN SỰ</p>
+  <div class="overview">
+    <div class="overview-sub">
+      <div class="overview-header">
+        <div class="header">
+          <h6>Tổng số hợp đồng đã ký</h6>
+          <p>Trong vòng: 1 tháng</p>
+        </div>
+        <div class="button">
+          <span nz-icon nzType="more" nzTheme="outline"></span>
+        </div>
+      </div>
+      <div style="margin-bottom: 7px">
+        <p class="number">12</p>
+      </div>
+      <div class="detail">
+        <p class="detail-text">Xem chi tiết</p>
+      </div>
+    </div>
+
+    <div class="overview-sub">
+      <div class="overview-header">
+        <div class="header">
+          <h6>Hợp đồng đã ký</h6>
+          <p>Trong vòng: 1 năm</p>
+        </div>
+        <div class="button">
+          <span nz-icon nzType="more" nzTheme="outline"></span>
+        </div>
+      </div>
+      <div style="margin-bottom: 7px">
+        <p class="number">89</p>
+      </div>
+      <div class="detail">
+        <p class="detail-text">Xem chi tiết</p>
+      </div>
+    </div>
+
+    <div class="overview-sub">
+      <div class="overview-header">
+        <div class="header">
+          <h6>Hợp đồng chưa ký</h6>
+          <p>Trong vòng: 1 tháng</p>
+        </div>
+        <div class="button">
+          <span nz-icon nzType="more" nzTheme="outline"></span>
+        </div>
+      </div>
+      <div style="margin-bottom: 7px">
+        <p class="number">5</p>
+      </div>
+      <div class="detail">
+        <p class="detail-text">Xem chi tiết</p>
+      </div>
+    </div>
+    <div class="overview-sub">
+      <div class="overview-header">
+        <div class="header">
+          <h6>Hợp đồng chờ ký</h6>
+          <p>Trong vòng: 1 tháng</p>
+        </div>
+        <div class="button">
+          <span nz-icon nzType="more" nzTheme="outline"></span>
+        </div>
+      </div>
+      <div style="margin-bottom: 7px">
+        <p class="number">0</p>
+      </div>
+      <div class="detail">
+        <p class="detail-text">Xem chi tiết</p>
+      </div>
+    </div>
+  </div>
+  <div class="overview-chart">
+    <div class="chart-container overview-chart-sub">
+      <div class="chart-header chart-se">
+        <div>
+          <h6>Thống kê nhân sự</h6>
+          <p>Cả đơn vị</p>
+        </div>
+        <span
+          nz-icon
+          nzType="setting"
+          nzTheme="outline"
+          style="margin: 4px 14px"
+        ></span>
+      </div>
+      <div class="chart">
+        <canvas id="MyChart">{{ chart }}</canvas>
+      </div>
+    </div>
+
+    <div class="chart-container overview-chart-sub">
+      <div class="chart-header chart-se">
+        <div>
+          <h6>Thống kê tăng giảm nhân sự</h6>
+          <p>Cả đơn vị</p>
+        </div>
+        <span
+          nz-icon
+          nzType="setting"
+          nzTheme="outline"
+          style="margin: 4px 14px"
+        ></span>
+      </div>
+      <div class="chart">
+        <canvas id="myLineChart" width="380" height="180">{{ linechart }}</canvas>
+      </div>
+    </div>
+
+    <div class="chart-container overview-chart-sub">
+      <div class="chart-header chart-se">
+        <div>
+          <h6>Thống kê giới tính</h6>
+          <p>Cả đơn vị</p>
+        </div>
+        <span
+          nz-icon
+          nzType="setting"
+          nzTheme="outline"
+          style="margin: 4px 14px"
+        ></span>
+      </div>
+      <div class="chart"></div>
+    </div>
+  </div>
+</div>

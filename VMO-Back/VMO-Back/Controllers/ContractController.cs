@@ -2,9 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Model.DTO;
 using Model.Model;
+using Model.Utils;
 using Share;
+using System.Text.RegularExpressions;
 using VMO_Back.Repository.Implement;
 using VMO_Back.Repository.Interface;
+using static Service.IService.IContractService;
+using static Service.IService.IContractTypeService;
 
 namespace VMO_Back.Controllers
 {
@@ -27,23 +31,34 @@ namespace VMO_Back.Controllers
 
         [HttpGet]
         [Route("all")]
-        public async Task<ExcuteResult<List<ContractDto>>> GetAllAsync()
+        public async Task<ExcuteResult<ListContractResult>> GetAllAsync()
         {
             try
             {
-                var Contracts = await _contractRepository.GetAllWithFilterAsync();
-                List<ContractDto> ContractsDto = _mapper.Map<List<ContractDto>>(Contracts);
-
-                if (ContractsDto == null)
+                ContractSearch model = new ContractSearch
                 {
-                    return new NotFoundRecordResult<List<ContractDto>>("Không có hợp đồng");
-                }
-                return new ExcuteResult<List<ContractDto>>(ContractsDto, ResultCode.SuccessResult, null);
+                    Page = new Share.Domain.Page
+                    {
+                        PageIndex = 0,
+                        PageSize = 15
+                    },
+                    StatusSign = StatusSign.All,
+                    Status = ActiveStatus.All
+                };
+                var filter = model.CreateFilter(_contractRepository.GetQueryable());
+                var data = await _contractRepository.ExecuteWithTransactionAsync(filter);
+                var result = new ListContractResult
+                {
+                    Data = _mapper.Map<List<ContractDto>>(data),
+                    Total = data.Count,
+                };
+
+                return new ExcuteResult<ListContractResult>(result, ResultCode.SuccessResult, null);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                return new ExcuteResult<List<ContractDto>>(null) { Code = ResultCode.ExceptionResult, ErrorMessage = ex.Message };
+                return new ExcuteResult<ListContractResult>(null) { Code = ResultCode.ExceptionResult, ErrorMessage = ex.Message };
             }
         }
 
@@ -89,6 +104,42 @@ namespace VMO_Back.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("contractCode-max")]
+        public async Task<ExcuteResult<string>> GetContractCodeMaxAsync()
+        {
+            try
+            {
+                var data = await _contractRepository.GetContractCodeMax();
+                Regex regex = new Regex(@"(HD)(0*)(\d+)");
+                Match match = regex.Match(data);
+                string result = "";
+                if (match.Success)
+                {
+                    string prefix = match.Groups[1].Value;
+                    string zeros = match.Groups[2].Value;
+                    string number = match.Groups[3].Value;
+
+                    int newNumber = int.Parse(number) + 1;
+
+                    string newNumberStr = newNumber.ToString().PadLeft(zeros.Length + number.Length, '0');
+
+                    result = prefix + newNumberStr;
+                }
+                else if (data == null)
+                {
+                    return new NotFoundRecordResult<string>("Không thể lấy lớn nhất");
+                }
+
+                return new ExcuteResult<string>(result, ResultCode.SuccessResult, null);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return new ExcuteResult<string>(null) { Code = ResultCode.ExceptionResult, ErrorMessage = ex.Message };
+            }
+        }
+
         [HttpPut]
         [Route("update")]
         public async Task<ExcuteResult<bool?>> UpdateAsync(ContractUpdateDto model)
@@ -131,6 +182,38 @@ namespace VMO_Back.Controllers
             {
                 _logger.LogError(ex, ex.Message);
                 return new ExcuteResult<bool?>(null) { Code = ResultCode.ExceptionResult, ErrorMessage = ex.Message };
+            }
+        }
+
+        [HttpGet]
+        [Route("overview-inc-dec")]
+        public async Task<ExcuteResult<OverviewIncDec>> GetOverViewEmployeeIncDecAsync()
+        {
+            try
+            {
+                ContractSearch model = new ContractSearch
+                {
+                    Page = new Share.Domain.Page
+                    {
+                        PageIndex = 0,
+                        PageSize = 15
+                    },
+                    StatusSign = StatusSign.All,
+                    Status = ActiveStatus.All
+                };
+                var filter = model.CreateFilter(_contractRepository.GetQueryable());
+                var data = await _contractRepository.ExecuteWithTransactionAsync(filter);
+                var result = new OverviewIncDec
+                {
+                    Active = data.Where(c => c.Status == ActiveStatus.Active).Count(),
+                    NoActive = data.Where(c => c.Status == ActiveStatus.NoActive).Count(),
+                };
+                return new ExcuteResult<OverviewIncDec>(result, ResultCode.SuccessResult, null);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return new ExcuteResult<OverviewIncDec>(null) { Code = ResultCode.ExceptionResult, ErrorMessage = ex.Message };
             }
         }
     }

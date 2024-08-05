@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model.Utils;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace Model.DTO
         public string Name { get; set; }
         public string ContractCode { get; set; }
         public int Term { get; set; }
-        public int Status { get; set; }
+        public ActiveStatus Status { get; set; }
     }
     public class ContractTypeAddDto
     {
@@ -25,9 +26,7 @@ namespace Model.DTO
 
         [Required(ErrorMessage = "You must enter {0}")]
         public int Term { get; set; }
-
-        [Required(ErrorMessage = "You must enter {0}")]
-        public int Status { get; set; }
+        public ActiveStatus Status { get; set; }
     }
     public class ContractTypeUpdateDto
     {
@@ -41,8 +40,6 @@ namespace Model.DTO
 
         [Required(ErrorMessage = "You must enter {0}")]
         public int Term { get; set; }
-
-        [Required(ErrorMessage = "You must enter {0}")]
-        public int Status { get; set; }
+        public ActiveStatus Status { get; set; }
     }
 }

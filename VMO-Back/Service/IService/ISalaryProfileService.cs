@@ -56,11 +56,18 @@ namespace Service.IService
             
             [DataMember(Order = 13)]
             public Page Page { get; set; }
+
+            [DataMember(Order = 14)]
+            public string SalaryProfileCode { get; set; }
             public IQueryable<SalaryProfile> CreateFilter(IQueryable<SalaryProfile> filter)
             {
                 if (SalaryProfileId.IsNotNullOrEmpty())
                 {
                     filter = filter.Where(c => c.SalaryProfileId == SalaryProfileId);
+                }
+                if (SalaryProfileCode.IsNotNullOrEmpty())
+                {
+                    filter = filter.Where(c => c.SalaryProfileCode == SalaryProfileCode);
                 }
                 if (BasicSalary.IsGreaterThan0())
                 {

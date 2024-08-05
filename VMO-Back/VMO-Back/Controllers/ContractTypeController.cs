@@ -5,6 +5,9 @@ using Model.Model;
 using Share;
 using static Service.IService.IContractTypeService;
 using VMO_Back.Repository.Interface;
+using Model.Utils;
+using System.Diagnostics.Contracts;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace VMO_Back.Controllers
 {
@@ -37,7 +40,8 @@ namespace VMO_Back.Controllers
                     {
                         PageIndex = 0,
                         PageSize = 15
-                    }
+                    },
+                    Status = ActiveStatus.All
                 };
                 var filter = model.CreateFilter(_conractTypeRepository.GetQueryable());
                 var data = await _conractTypeRepository.ExecuteWithTransactionAsync(filter);
@@ -82,7 +86,6 @@ namespace VMO_Back.Controllers
         {
             try
             {
-
                 var ContractType = _mapper.Map<ContractType>(dto);
                 var result = await _conractTypeRepository.AddEntityAsync(ContractType);
                 if (!result)
@@ -104,7 +107,6 @@ namespace VMO_Back.Controllers
         {
             try
             {
-                _conractTypeRepository.BeginTransaction();
                 var existEntity = await _conractTypeRepository.GetAsync(c => c.ContractTypeId == model.ContractTypeId);
                 var ContractType = _mapper.Map(model, existEntity);
 
@@ -142,5 +144,27 @@ namespace VMO_Back.Controllers
                 return new ExcuteResult<bool?>(null) { Code = ResultCode.ExceptionResult, ErrorMessage = ex.Message };
             }
         }
+
+        [HttpGet]
+        [Route("overview")]
+        public async Task<ExcuteResult<ListContractTypeOverviewResult>> GetOverViewEmployeeAsync()
+        {
+            try
+            {
+                var result = await _conractTypeRepository.GetOverViewEmployeeAsync();
+                var resultData = new ListContractTypeOverviewResult
+                {
+                    Data = result,
+                    Total = result.Count,
+                };
+                return new ExcuteResult<ListContractTypeOverviewResult>(resultData, ResultCode.SuccessResult, null);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return new ExcuteResult<ListContractTypeOverviewResult>(null) { Code = ResultCode.ExceptionResult, ErrorMessage = ex.Message };
+            }
+        }
+
     }
 }

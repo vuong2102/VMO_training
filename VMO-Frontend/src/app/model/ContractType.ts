@@ -1,4 +1,5 @@
 import { ActiveStatus } from "src/share/model/ActiveStatus";
+import { Contract } from './Contract';
 
 export interface ContractType {
   contractTypeId: string;
@@ -6,4 +7,10 @@ export interface ContractType {
   contractCode: string;
   term: number;
   status: ActiveStatus;
+}
+
+export interface ContractTypeOverview {
+  contractTypeId: string;
+  contractTypeName: string;
+  number: number;
 }

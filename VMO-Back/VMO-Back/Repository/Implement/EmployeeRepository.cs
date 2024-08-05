@@ -35,5 +35,11 @@ namespace VMO_Back.Repository.Implement
                 throw;
             }
         }
+
+        public async Task<List<Employee>> GetAllWithEmployeeCode(EmployeeSearch model)
+        {
+            var employees = Query.Where(c => c.Code == model.Code).ToList();
+            return employees;
+        }
     }
 }
